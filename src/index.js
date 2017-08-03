@@ -1,10 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { AppContainer as HotReloader } from 'react-hot-loader';
+import { render } from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
 import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-ReactDOM.render(<Routes history={createHistory()} />, document.getElementById('root'));
+const history = createHistory();
+const rootEl = document.getElementById('root');
+
+const renderApp = () =>
+  render(
+    <HotReloader>
+      <Routes history={history} />
+    </HotReloader>,
+    rootEl,
+  );
+
+renderApp();
+
+if (module.hot) {
+  module.hot.accept('./routes', () => renderApp());
+}
 
 registerServiceWorker();

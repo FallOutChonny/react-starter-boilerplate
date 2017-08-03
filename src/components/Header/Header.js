@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+// import './Header.scss';
+import s from './Header.scss';
 
 class Header extends Component {
   render() {
-    return (
-      <div>
-
-      </div>
-    );
+    return <div className={s.header}>Hello World!</div>;
   }
 }
 

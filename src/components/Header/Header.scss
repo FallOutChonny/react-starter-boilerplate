@@ -1,16 +1,18 @@
-#header {
+.header {
   background-color: #026AA7;
   padding: 5px;
-}
 
-.header-user {
+  &__user {
+    position: absolute;
+    top: 5px;
+    right: 0;
+  }
 
-}
+  &-btn {
 
-.header-btn {
+  }
 
-}
+  &-icon-btn {
 
-.header-icon-btn {
-
+  }
 }

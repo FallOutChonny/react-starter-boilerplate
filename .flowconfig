@@ -1,0 +1,13 @@
+[ignore]
+.*/build
+.*/config
+.*/docs
+.*/node_modules
+.*/public
+.*/scripts
+
+[include]
+
+[libs]
+
+[options]
