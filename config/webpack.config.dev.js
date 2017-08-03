@@ -11,6 +11,8 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const HappyPack = require('happypack');
+const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -171,77 +173,20 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        use: [
-          {
-            // react-hot-loader/webpack only works on exported components, whereas 
-            // react-hot-loader/babel picks up all top-level variables in your files.
-            // As a workaround, with Webpack, you can export all the components whose
-            // state you want to maintain, even if they’re not imported anywhere else.
-            loader: require.resolve('react-hot-loader/webpack')
-          },
-          {
-            loader: require.resolve('babel-loader'),
-            options: {
-              // This is a feature of `babel-loader` for webpack (not Babel itself).
-              // It enables caching results in ./node_modules/.cache/babel-loader/
-              // directory for faster rebuilds.
-              cacheDirectory: true,
-            },
-          }
-        ],
+        loaders: ['happypack/loader?id=jsx'],
       },
-      // "postcss" loader applies autoprefixer to our CSS.
-      // "css" loader resolves paths in CSS and adds assets as dependencies.
-      // "style" loader turns CSS into JS modules that inject <style> tags.
-      // In production, we use a plugin to extract that CSS to a file, but
-      // in development "style" loader enables hot editing of CSS.
+      // Process CSS.
       {
         test: /\.css$/,
-        use: [
-          require.resolve('style-loader'),
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-            },
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: {
-              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-              plugins: () => [
-                require('postcss-flexbugs-fixes'),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
-              ],
-            },
-          },
-        ],
+        loaders: ['happypack/loader?id=css'],
       },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.
-      // Process SCSS with .
+      // Process SCSS.
       {
         test: /\.scss$/,
-        // include: paths.appSrc,
-        use: [
-          {
-            loader: 'style-loader'
-          }, 
-          { 
-            loader: 'css-loader'
-          }, 
-          {
-            loader: 'sass-loader'
-          }
-        ]
+        include: paths.appSrc,
+        loaders: ['happypack/loader?id=scss'],
       },
     ],
   },
@@ -276,6 +221,106 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // Configuration global scss|css loader options, this is new feature
+    // introduced from webpack 2. NOTE: maybe removed from webpack.
+    new webpack.LoaderOptionsPlugin({
+      test: /\.(css|scss)/,
+      options: {
+        ident: 'postcss',
+        postcss: function(wp) {
+          return [
+            // require('postcss-import')({ addDependencyTo: wp }),
+            require('postcss-flexbugs-fixes'),
+            autoprefixer({
+              browsers: [
+                '>1%',
+                'last 4 versions',
+                'Firefox ESR',
+                'not ie < 9', // React doesn't support IE8 anyway
+              ],
+              flexbox: 'no-2009',
+            }),
+          ];
+        },
+      },
+    }),
+    // Make you happy with Happypack plugin.
+    new HappyPack({
+      id: 'jsx',
+      threadPool: happyThreadPool,
+      loaders: [
+        {
+          // react-hot-loader/webpack only works on exported components, whereas
+          // react-hot-loader/babel picks up all top-level variables in your files.
+          // As a workaround, with Webpack, you can export all the components whose
+          // state you want to maintain, even if they’re not imported anywhere else.
+          loader: require.resolve('react-hot-loader/webpack'),
+        },
+        {
+          loader: require.resolve('babel-loader'),
+          options: {
+            // This is a feature of `babel-loader` for webpack (not Babel itself).
+            // It enables caching results in ./node_modules/.cache/babel-loader/
+            // directory for faster rebuilds.
+            cacheDirectory: true,
+          },
+        },
+      ],
+    }),
+    new HappyPack({
+      id: 'scss',
+      loaders: [
+        {
+          loader: 'style-loader',
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2,
+            sourceMap: true,
+          },
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true,
+          },
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            outputStyle: 'expanded',
+            sourceMap: true,
+          },
+        },
+      ],
+    }),
+    // "postcss" loader applies autoprefixer to our CSS.
+    // "css" loader resolves paths in CSS and adds assets as dependencies.
+    // "style" loader turns CSS into JS modules that inject <style> tags.
+    // In production, we use a plugin to extract that CSS to a file, but
+    // in development "style" loader enables hot editing of CSS.
+    new HappyPack({
+      id: 'css',
+      loaders: [
+        {
+          loader: require.resolve('style-loader'),
+        },
+        {
+          loader: require.resolve('css-loader'),
+          options: {
+            importLoaders: 1,
+            sourceMap: true,
+          },
+        },
+        {
+          loader: require.resolve('postcss-loader'),
+          options: {
+            sourceMap: true,
+          },
+        },
+      ],
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
