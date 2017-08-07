@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './reducers';
-import DevTools from '../containers/DevTools';
 
 const configureStore = preloadedState => {
   const middleware = [
@@ -11,6 +10,7 @@ const configureStore = preloadedState => {
   if (process.env.NODE_ENV === 'development') {
     const { persistState } = require('redux-devtools');
     const { devToolsExtension: devToolsExt, location: { href } } = window;
+    const DevTools = require('../containers/DevTools');
 
     // Check redux-devtools is from chrome extension or npm package.
     const devTools = devToolsExt ? devToolsExt() : DevTools.instrument();
