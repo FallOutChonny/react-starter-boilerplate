@@ -15,9 +15,9 @@ const configureStore = preloadedState => {
     // Check redux-devtools is from chrome extension or npm package.
     const devTools = devToolsExt ? devToolsExt() : DevTools.instrument();
 
-    // Enable Redux DevTools Extension
+    // Enable Redux DevTools extension
     enhancers.push(devTools);
-    // Lets you write ?debug_session=<name> in url to persist state
+    // Lets you write ?debug_session=<name> in URL to persist state
     enhancers.push(persistState(href.match(/[?&]debug_session=([^&]+)\b/)));
   }
 
