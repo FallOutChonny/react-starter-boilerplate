@@ -1,6 +1,6 @@
 {
-  "name": "redux-trello",
-  "version": "0.1.0",
+  "name": "create-react-redux-app",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "express": "^4.15.3",
@@ -9,7 +9,9 @@
     "react": "next",
     "react-dom": "next",
     "react-hot-loader": "^3.0.0-beta.7",
-    "react-router": "^4.1.2"
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.2",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "autodll-webpack-plugin": "^0.2.1",
@@ -46,6 +48,9 @@
     "promise": "8.0.1",
     "react-dev-utils": "^3.0.2",
     "react-error-overlay": "^1.0.9",
+    "redux-devtools": "^3.4.0",
+    "redux-devtools-dock-monitor": "^1.1.2",
+    "redux-devtools-log-monitor": "^1.3.0",
     "sass-loader": "^6.0.6",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
@@ -59,7 +64,6 @@
     "start:server": "node server",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "build-dll": "./node_modules/.bin/webpack --config config/vendor.config.js",
     "test": "node scripts/test.js --env=jsdom",
     "flow": "flow"
   },
