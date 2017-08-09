@@ -13,6 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [x] Docker
 - [x] Redux
 - [x] Redux DevTools
+- [x] Redux-Saga
 
 ## Quick Start
 
@@ -34,7 +35,6 @@ yarn run start:server
 
 ## Todo Tasks
 
-- [ ] redux-saga
 - [ ] Api
 - [ ] OAuth
 - [ ] Express

@@ -62,7 +62,7 @@ module.exports = {
     // Errors should be considered fatal in development
     require.resolve('react-error-overlay'),
     // Finally, this is your app's code:
-    paths.appIndexJs
+    paths.appIndexJs,
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
@@ -82,7 +82,7 @@ module.exports = {
     publicPath: publicPath,
     // Point sourcemap entries to original disk location
     devtoolModuleFilenameTemplate: info =>
-      path.resolve(info.absoluteResourcePath)
+      path.resolve(info.absoluteResourcePath),
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -103,7 +103,7 @@ module.exports = {
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      'react-native': 'react-native-web',
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -111,8 +111,8 @@ module.exports = {
       // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc)
-    ]
+      new ModuleScopePlugin(paths.appSrc),
+    ],
   },
   module: {
     strictExportPresence: true,
@@ -130,13 +130,13 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint')
+              eslintPath: require.resolve('eslint'),
             },
-            loader: require.resolve('eslint-loader')
-          }
+            loader: require.resolve('eslint-loader'),
+          },
         ],
         include: paths.appSrc,
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -151,26 +151,26 @@ module.exports = {
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
-              name: 'static/media/[name].[hash:8].[ext]'
-            }
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
           },
           // Process JS with Babel.
           {
             test: /\.(js|jsx)$/,
             include: paths.appSrc,
             exclude: /node_modules/,
-            loaders: ['happypack/loader?id=jsx']
+            loaders: ['happypack/loader?id=jsx'],
           },
           // Process CSS.
           {
             test: /\.css$/,
-            loaders: ['happypack/loader?id=css']
+            loaders: ['happypack/loader?id=css'],
           },
           // Process SCSS.
           {
             test: /\.scss$/,
             include: paths.appSrc,
-            loaders: ['happypack/loader?id=scss']
+            loaders: ['happypack/loader?id=scss'],
           },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
@@ -184,14 +184,14 @@ module.exports = {
             // by webpacks internal loaders.
             exclude: [/\.js$/, /\.html$/, /\.json$/],
             options: {
-              name: 'static/media/[name].[hash:8].[ext]'
-            }
-          }
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
+          },
           // ** STOP ** Are you adding a new loader?
           // Make sure to add the new loader(s) before the "file" loader.
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
   plugins: [
     // Makes some environment variables available in index.html.
@@ -202,7 +202,7 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml
+      template: paths.appHtml,
     }),
     new AutoDllPlugin({
       inject: true,
@@ -223,21 +223,22 @@ module.exports = {
           'redux-devtools',
           'redux-devtools-dock-monitor',
           'redux-devtools-log-monitor',
-          'prop-types'
-        ]
+          'redux-saga',
+          'prop-types',
+        ],
       },
       plugins: [
         new webpack.optimize.UglifyJsPlugin({
           compress: {
             warnings: false,
-            comparisons: false
+            comparisons: false,
           },
           output: {
-            comments: false
+            comments: false,
           },
-          sourceMap: true
-        })
-      ]
+          sourceMap: true,
+        }),
+      ],
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
@@ -274,17 +275,17 @@ module.exports = {
                 '>1%',
                 'last 4 versions',
                 'Firefox ESR',
-                'not ie < 9' // React doesn't support IE8 anyway
+                'not ie < 9', // React doesn't support IE8 anyway
               ],
-              flexbox: 'no-2009'
-            })
+              flexbox: 'no-2009',
+            }),
           ];
         },
         eslint: {
           // Use eslintrc file from app root,
-          configFile: '../.eslintrc'
-        }
-      }
+          configFile: '../.eslintrc',
+        },
+      },
     }),
     // Make you happy with Happypack plugin.
     // Use happypack process JS/JSX
@@ -297,7 +298,7 @@ module.exports = {
           // react-hot-loader/babel picks up all top-level variables in your files.
           // As a workaround, with Webpack, you can export all the components whose
           // state you want to maintain, even if they’re not imported anywhere else.
-          loader: require.resolve('react-hot-loader/webpack')
+          loader: require.resolve('react-hot-loader/webpack'),
         },
         {
           loader: require.resolve('babel-loader'),
@@ -305,41 +306,41 @@ module.exports = {
             // This is a feature of `babel-loader` for webpack (not Babel itself).
             // It enables caching results in ./node_modules/.cache/babel-loader/
             // directory for faster rebuilds.
-            cacheDirectory: true
-          }
-        }
+            cacheDirectory: true,
+          },
+        },
       ],
-      verbose: false
+      verbose: false,
     }),
     // Use happpack process SCSS
     new HappyPack({
       id: 'scss',
       loaders: [
         {
-          loader: 'style-loader'
+          loader: 'style-loader',
         },
         {
           loader: 'css-loader',
           options: {
             importLoaders: 2,
-            sourceMap: true
-          }
+            sourceMap: true,
+          },
         },
         {
           loader: 'postcss-loader',
           options: {
-            sourceMap: true
-          }
+            sourceMap: true,
+          },
         },
         {
           loader: 'sass-loader',
           options: {
             outputStyle: 'expanded',
-            sourceMap: true
-          }
-        }
+            sourceMap: true,
+          },
+        },
       ],
-      verbose: false
+      verbose: false,
     }),
     // "postcss" loader applies autoprefixer to our CSS.
     // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -350,36 +351,36 @@ module.exports = {
       id: 'css',
       loaders: [
         {
-          loader: require.resolve('style-loader')
+          loader: require.resolve('style-loader'),
         },
         {
           loader: require.resolve('css-loader'),
           options: {
             importLoaders: 1,
-            sourceMap: true
-          }
+            sourceMap: true,
+          },
         },
         {
           loader: require.resolve('postcss-loader'),
           options: {
-            sourceMap: true
-          }
-        }
+            sourceMap: true,
+          },
+        },
       ],
-      verbose: false
-    })
+      verbose: false,
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
   node: {
     fs: 'empty',
     net: 'empty',
-    tls: 'empty'
+    tls: 'empty',
   },
   // Turn off performance hints during development because we don't do any
   // splitting or minification in interest of speed. These warnings become
   // cumbersome.
   performance: {
-    hints: false
-  }
+    hints: false,
+  },
 };
