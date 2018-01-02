@@ -1,0 +1,73 @@
+---
+# Output debugging info
+# loglevel: debug
+
+# Major version of Bootstrap: 3 or 4
+bootstrapVersion: 4
+
+# Webpack loaders, order matters
+styleLoaders:
+  - style-loader
+  - css-loader
+  - sass-loader
+
+# Customize Bootstrap variables that get imported before the original Bootstrap variables.
+# Thus original Bootstrap variables can depend on values from here.
+# preBootstrapCustomizations: ./app/assets/styles/bootstrap/pre-customizations.scss
+
+# This gets loaded after bootstrap/variables is loaded
+# So you can refer to bootstrap variables
+# bootstrapCustomizations: ./app/assets/styles/bootstrap/customizations-bs4.scss
+
+# With CSS Modules we load all application styles directly in React components
+# appStyles: ./src/theme/app.scss
+
+### Bootstrap styles
+styles:
+
+  # Mixins
+  mixins: true
+
+  # Reset and dependencies
+  print: true
+
+  # Core CSS
+  buttons: true
+  code: true
+  forms: true
+  grid: true
+  images: true
+  reboot: true
+  tables: true
+  type: true
+
+  # Components
+  alert: true
+  badge: true
+  breadcrumb: true
+  button-group: true
+  card: true
+  close: true
+  custom-forms: true
+  dropdown: true
+  input-group: true
+  jumbotron: true
+  list-group: true
+  media: true
+  nav: true
+  navbar: true
+  pagination: true
+  progress: true
+  transitions: true
+
+  # Components w/ JavaScript
+  carousel: true
+  modal: true
+  popover: true
+  tooltip: true
+
+  # Utility classes
+  utilities: true
+
+### Bootstrap scripts
+scripts: false

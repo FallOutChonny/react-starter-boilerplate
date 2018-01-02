@@ -3,7 +3,8 @@
     "browser": true,
     "commonjs": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": "airbnb",
   "parserOptions": {
@@ -25,6 +26,9 @@
     "global-require": "off",
     "no-unreachable": "warn",
     "no-unused-vars": "warn",
+    "no-console": "off",
+    "function-paren-newline": "off",
+    "jsx-a11y/href-no-hash": "off",
     "import/no-extraneous-dependencies": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": ["warn", { "ignorePureComponents": true }]
@@ -33,6 +37,9 @@
     "__DEVELOPMENT__": true,
     "__CLIENT__": true,
     "__SERVER__": true,
-    "__DEVTOOLS__": true
+    "__DEVTOOLS__": true,
+    "__DLLS__": true,
+    "__DISABLE_SSR__": true,
+    "webpackIsomorphicTools": true
   }
 }

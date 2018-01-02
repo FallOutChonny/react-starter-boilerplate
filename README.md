@@ -1,42 +1,9 @@
-# Create-React-Redux-App
+# Road map
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+* async reducers and saga
+* reselect and immutable
+* Write examples
+* Write unit test for every files
 
-## Completed Tasks
-
-- [x] Webpack DLL support
-- [x] Code splitting
-- [x] Happypack
-- [x] Hot-reloading
-- [x] React-router v4
-- [x] ESLint
-- [x] Docker
-- [x] Redux
-- [x] Redux DevTools
-- [x] Redux-Saga
-
-## Quick Start
-
-### How to run
-
-#### Development session
-
-```sh
-yarn install
-yarn run start
-```
-
-#### Production build
-
-```sh
-yarn run build
-yarn run start:server
-```
-
-## Todo Tasks
-
-- [ ] Api
-- [ ] OAuth
-- [ ] Express
-- [ ] Server-side rendering?
-- [ ] CSS Module?
+* preact on production
+* Rewrite SSR code

@@ -1,5 +1,22 @@
-import React from 'react';
-import Route from 'react-router/Route';
-import App from './components/App';
+import App from './containers/App';
+import Home from './containers/Home';
+import NotFound from './containers/NotFound';
 
-export default <Route exact path="/" component={App} />;
+export default function createRoutes(/* store */) {
+  return [
+    {
+      component: App,
+      routes: [
+        {
+          path: '/',
+          exact: true,
+          component: Home,
+        },
+        {
+          path: '*',
+          component: NotFound,
+        },
+      ],
+    },
+  ];
+}
