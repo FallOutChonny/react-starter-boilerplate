@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import serialize from 'serialize-javascript';
 import Helmet from 'react-helmet';
-import config from '../config';
+import { publicUrl } from '../config';
 
 class Html extends React.PureComponent {
   render() {
@@ -13,6 +13,8 @@ class Html extends React.PureComponent {
       <html lang="en">
         <head>
           {head.base.toComponent()}
+          {head.title.toComponent()}
+          {head.meta.toComponent()}
           {head.link.toComponent()}
           {head.script.toComponent()}
           <link rel="shortcut icon" href="/favicon.ico" />
@@ -48,12 +50,7 @@ class Html extends React.PureComponent {
           {__DLLS__ && <script src="/dll/vendor.dll.js" />}
           {assets.javascript && <script src={assets.javascript.vendor} />}
           {assets.javascript && <script src={assets.javascript.main} />}
-          {bundles.map(bundle => (
-            <script
-              src={`${config.publicUrl}/${bundle.file}`}
-              key={bundle.id}
-            />
-          ))}
+          {bundles.map(u => <script src={`${publicUrl}/${u.file}`} />)}
           {/* (will be present only in development mode) */}
           {assets.styles && Object.keys(assets.styles).length === 0 ? (
             <script
