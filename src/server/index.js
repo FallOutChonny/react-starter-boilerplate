@@ -74,7 +74,7 @@ app.use((req, res) => {
   runTasks.done.then(() => {
     const routerContext = {};
     const modules = [];
-    const content = ReactDOM.renderToString(
+    const component = (
       <Loadable.Capture report={moduleName => modules.push(moduleName)}>
         <Provider store={store}>
           <ConnectedRouter history={history}>
@@ -91,7 +91,8 @@ app.use((req, res) => {
     }
 
     const sheet = new ServerStyleSheet();
-    const styles = sheet.getStyleTags();
+    const content = ReactDOM.renderToString(sheet.collectStyles(component));
+    const styleTags = sheet.getStyleElement();
     const bundles = getBundles(stats, modules);
     const html = `<!doctype html>${ReactDOM.renderToStaticMarkup(
       <Html
@@ -99,7 +100,7 @@ app.use((req, res) => {
         preloadState={store.getState()}
         assets={webpackIsomorphicTools.assets()}
         bundles={bundles}
-        styles={styles}
+        styleTags={styleTags}
       />
     )}`;
 

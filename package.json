@@ -1,5 +1,5 @@
 {
-  "name": "create-universal-react-redux-app",
+  "name": "react-starter-boilerplate",
   "description": "A starter kit for universal react app",
   "keywords": [
     "bootstrap 4",
@@ -136,11 +136,20 @@
     "postsetup": "npm run build:dll",
     "precommit": "lint-staged",
     "watch-client": "better-npm-run watch-client",
+    "start": "npm run start:prod",
     "start:dev": "better-npm-run start:dev",
-    "start:prod": "node server",
+    "start:prod": "better-npm-run start:prod",
     "test": "node scripts/test.js --env=jsdom"
   },
   "betterScripts": {
+    "start:prod": {
+      "command": "node ./server.js",
+      "env": {
+        "BABEL_ENV": "production",
+        "NODE_ENV": "production",
+        "NODE_PATH": "./src"
+      }
+    },
     "start:dev": {
       "command": "node ./server.js",
       "env": {

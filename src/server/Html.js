@@ -7,10 +7,8 @@ import config from '../config';
 
 class Html extends React.PureComponent {
   render() {
-    const { assets, content, preloadState, bundles } = this.props;
-    const html = `<div>${content}</div>`;
+    const { assets, content, preloadState, bundles, styleTags } = this.props;
     const head = Helmet.rewind();
-
     return (
       <html lang="en">
         <head>
@@ -29,7 +27,6 @@ class Html extends React.PureComponent {
             Object.keys(assets.styles).map(style => (
               <link
                 href={assets.styles[style]}
-                key={Math.random()}
                 media="screen, projection"
                 rel="stylesheet"
                 type="text/css"
@@ -39,9 +36,10 @@ class Html extends React.PureComponent {
           {assets.styles && Object.keys(assets.styles).length === 0 ? (
             <style dangerouslySetInnerHTML={{ __html: '#app{display:none}' }} />
           ) : null}
+          {styleTags}
         </head>
         <body>
-          <div id="app" dangerouslySetInnerHTML={{ __html: html }} />
+          <div id="app" dangerouslySetInnerHTML={{ __html: content }} />
           <script
             dangerouslySetInnerHTML={{
               __html: `window.__PRELOADED_STATE__=${serialize(preloadState)};`,
@@ -75,7 +73,7 @@ Html.propTypes = {
     styles: PropTypes.object,
     javascript: PropTypes.object,
   }),
-  // styles: PropTypes.string,
+  styleTags: PropTypes.node,
   bundles: PropTypes.arrayOf(PropTypes.object),
   content: PropTypes.string,
   preloadState: PropTypes.shape({
@@ -84,6 +82,7 @@ Html.propTypes = {
 };
 
 Html.defaultProps = {
+  styleTags: '',
   assets: {},
   bundles: [],
   content: '',
