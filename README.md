@@ -30,6 +30,7 @@ Integrated some packages and tools that can reduce webpack initial/rebuild time,
 * react-hot-loader
 * redux-devtools
 * webpack-bundle-analyzer
+* Prettier and ESLint integrated
 
 You can also install [react-tools](https://github.com/facebook/react-devtools), this is a browser extension made by facebook.
 
