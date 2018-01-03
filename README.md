@@ -4,7 +4,7 @@ A starter kit for universal react app, this project is extends from ejected crea
 
 ## Features
 
-I put these popular react/redux ecosystem libraries together and already set up.
+I put these popular and widely used react/redux ecosystem libraries together and already set up in this project.
 
 * immutable.js
 * react
@@ -111,4 +111,6 @@ Run ESLint (code quality tool) that checks for problems in your app code.
 * Write examples
 * Write unit test for react components, reducers and sagas
 * preact on production
+* Deploy a demo site
+* CLI cmd to create page
 * Rewrite SSR code
