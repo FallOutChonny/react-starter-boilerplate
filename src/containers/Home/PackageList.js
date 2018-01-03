@@ -9,23 +9,29 @@ const Wrapper = styled.div`
 
 export default () => (
   <Wrapper>
+    <h3>Best DX (developer Experience)</h3>
     <ul>
       <li>
-        No runtime libraries. No magic. Simply precompile your way to clear
-        React code.
-      </li>
-      <li>Easy syntax thats similar to HTML, supported by most IDEs.</li>
-      <li>
-        Clear separation of presentation and logic - almost zero HTML in
-        component files.
+        Hot-reload both on client-side and server-side, and interagte
+        redux-devtools/extension for dev.
       </li>
       <li>
-        Declarative coding ensures that the HTML that you write and the HTML you
-        inspect look nearly identical.
+        Use happypack, webpack DLL plugin and cache-loader to reduce webpack
+        initial/rebuild time.
       </li>
       <li>
-        Supports <a href="#amd">AMD</a>, <a href="#commonjs">CommonJS</a>,{' '}
-        <a href="#es6">ES6</a>, Typescript and globals.
+        Already setup long-term caching on production, you dont worry about it.
+      </li>
+      <li>
+        Integrated popular react/redux libraries, such as react-router,
+        redux-saga, reselect, react-loadable, immutablejs
+      </li>
+      <li>
+        Integrated bootstrap v4 and font-awesome, easy start layout your page.
+      </li>
+      <li>
+        Prettier and ESLint integrated, make sure project keep Consistently,
+        high quality code and reduce stupid bugs (ex typo).
       </li>
     </ul>
   </Wrapper>

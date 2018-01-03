@@ -12,7 +12,7 @@ const cards = [
     icon: 'rocket',
     title: 'Production Ready',
     text:
-      "Split vendor libraries, and contains route and component level code splitting, dynamically load page's reducer and saga to reduce bundle size.",
+      'Split vendor libraries, and contains route and component based code splitting, ship only the js, reducer and saga that are on the page',
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const cards = [
   {
     id: 4,
     icon: 'magic',
-    title: 'CSS suport',
+    title: 'Next-generation CSS',
     text:
       "Mainly use styled-components, it can ship only the styles that are on the page for the best performance. but you can still write scss, less, css, it's up to you.",
   },
