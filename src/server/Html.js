@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, object-curly-newline */
 import React from 'react';
 import PropTypes from 'prop-types';
 import serialize from 'serialize-javascript';

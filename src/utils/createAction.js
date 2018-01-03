@@ -1,3 +1,5 @@
+/* eslint-disable no-confusing-arrow */
+
 const identity = value => value;
 
 /**
