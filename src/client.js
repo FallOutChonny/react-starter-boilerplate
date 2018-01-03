@@ -1,7 +1,7 @@
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import { AppContainer as HotReloader } from 'react-hot-loader';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 import renderRoutes from 'react-router-config/renderRoutes';
@@ -20,7 +20,7 @@ const rootEl = document.getElementById('app');
   const routes = createRoutes(store);
 
   const renderApp = _routes =>
-    render(
+    hydrate(
       <HotReloader>
         <Provider store={store}>
           <ConnectedRouter history={history}>
@@ -43,17 +43,17 @@ const rootEl = document.getElementById('app');
     });
   }
 
-  // if (__DEVTOOLS__ && !window.devToolsExtension) {
-  //   const devToolsEl = document.createElement('div');
-  //   window.document.body.insertBefore(devToolsEl, null);
-  //   const DevTools = require('./components/DevTools');
-  //   hydrate(
-  //     <Provider store={store}>
-  //       <DevTools />
-  //     </Provider>,
-  //     devToolsEl
-  //   );
-  // }
+  if (__DEVTOOLS__ && !window.devToolsExtension) {
+    const devToolsEl = document.createElement('div');
+    window.document.body.insertBefore(devToolsEl, null);
+    const DevTools = require('./components/DevTools');
+    hydrate(
+      <Provider store={store}>
+        <DevTools />
+      </Provider>,
+      devToolsEl
+    );
+  }
 
   registerServiceWorker();
 })();
