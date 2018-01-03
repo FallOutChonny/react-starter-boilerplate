@@ -1,9 +1,7 @@
 # Road map
 
-* async reducers and saga
-* reselect and immutable
+* Write README
 * Write examples
-* Write unit test for every files
-
+* Write unit test for react components, reducers and sagas
 * preact on production
 * Rewrite SSR code
