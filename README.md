@@ -6,19 +6,19 @@ A starter kit for universal react app, this project is extends from ejected crea
 
 I put these popular and widely used react/redux ecosystem libraries together and already set up in this project.
 
-* immutable.js
-* react
-* reacy-loadable
-* react-helmet
-* react-router
-* react-router-redux
-* reselect
-* reactstrap
-* redux
-* redux-saga
-* styled-components
-* bootstrap v4
-* font-awesome
+* `react` as the view.
+* `react-router` v4 as the router.
+* `react-loadable` provides component based code splitting
+* `react-helmet` provides control of the page head from within components.
+* `redux` as the state management container
+* `redux-saga` deal with asynchronous action flow.
+* `react-router-redux` sync your router with redux state
+* `reselect` to avoid frequent re-render.
+* `reactstrap` react bootstrap 4 components.
+* `immutable.js` provides many persistent Immutable data structures.
+* `styled-components` helps you organize CSS in react project.
+* `bootstrap` v4 for building responsive, mobile-first pages.
+* `font-awesome` as the Icons
 
 ## Better Developer Expreience
 
@@ -32,19 +32,19 @@ Integrated some packages and tools that can reduce webpack initial/rebuild time,
 * webpack-bundle-analyzer
 * Prettier and ESLint integrated
 
-You can also install [react-tools](https://github.com/facebook/react-devtools), this is a browser extension made by facebook.
+You can also install [react-devtools](https://github.com/facebook/react-devtools), this is a browser extension made by facebook.
 
 ## Production Ready
 
-* split vendor libraries from app code
-* offline support
-* route and component based code splitting
-* async inject reducer and saga
-* Long-term caching
+* Split vendor libraries from app code.
+* Route and component based code splitting.
+* Async inject reducer and saga.
+* Offline support via service-worker.
+* Long-term browser caching support.
 
 ## SEO Friendly
 
-It's a universal project, so web content can crawlable, and we use `react-helmet` inject meta tags into html head dynamically.
+This project is using Server-side rendering, so web content can be crawlable, and we use `react-helmet` to inject meta tags into html head dynamically, so social media like G+, facebook can know your website's metadata.
 
 ## Supported Language Features
 
@@ -57,6 +57,10 @@ This project supports [ES6](https://github.com/lukehoban/es6features) syntax fea
 * JSX and Flow syntax.
 
 Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-).
+
+## Supported CSS type
+
+this project support `css`, `less` and `scss`, but I recommend you to use [styled-components](https://github.com/styled-components/styled-components) to write your style, it can only ship styles that are on the page so it can effectively reduce the bundle size of css file.
 
 ## Getting Started
 
