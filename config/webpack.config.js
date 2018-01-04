@@ -339,7 +339,7 @@ const config = {
       : [
           new HtmlWebpackPlugin({
             inject: true,
-            template: paths.appHtml,
+            template: 'src/pwa.js',
             minify: {
               removeComments: true,
               collapseWhitespace: true,
