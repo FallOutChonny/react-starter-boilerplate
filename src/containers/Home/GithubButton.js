@@ -6,8 +6,10 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const Button = styled.button.attrs({
+const LinkButton = styled.a.attrs({
   className: 'btn btn-lg btn-secondary',
+  role: 'button',
+  href: 'https://github.com/chonnychu31/react-starter-boilerplate',
 })`
   border-width: 2px;
   background: 0 0;
@@ -15,8 +17,10 @@ const Button = styled.button.attrs({
   font-size: 24px;
 `;
 
-export default () => (
-  <Wrapper>
-    <Button>Check Out on Github</Button>
-  </Wrapper>
-);
+export default function GithubButton() {
+  return (
+    <Wrapper>
+      <LinkButton>Check Out on Github</LinkButton>
+    </Wrapper>
+  );
+}
