@@ -8,7 +8,7 @@ import { publicUrl } from '../config';
 class Html extends React.PureComponent {
   render() {
     const { assets, content, preloadState, bundles, styleTags } = this.props;
-    const head = Helmet.rewind();
+    const head = Helmet.renderStatic();
     return (
       <html lang="en">
         <head>
@@ -22,7 +22,10 @@ class Html extends React.PureComponent {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-          <meta name="apple-mobile-web-app-title" content="TibaMe" />
+          <meta
+            name="apple-mobile-web-app-title"
+            content="react-starter-boilerplate"
+          />
           <meta name="theme-color" content="#ffffff" />
           {/* styles (will be present only in production with webpack extract text plugin) */}
           {assets.styles &&
@@ -38,7 +41,7 @@ class Html extends React.PureComponent {
           {assets.styles && Object.keys(assets.styles).length === 0 ? (
             <style dangerouslySetInnerHTML={{ __html: '#app{display:none}' }} />
           ) : null}
-          {styleTags}
+          {!__DEVELOPMENT__ ? styleTags : null}
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: content }} />
@@ -50,7 +53,9 @@ class Html extends React.PureComponent {
           {__DLLS__ && <script src="/dll/vendor.dll.js" />}
           {assets.javascript && <script src={assets.javascript.vendor} />}
           {assets.javascript && <script src={assets.javascript.main} />}
-          {bundles.map(u => <script src={`${publicUrl}/${u.file}`} />)}
+          {bundles.map(u => (
+            <script key={u.id} src={`${publicUrl}/${u.file}`} />
+          ))}
           {/* (will be present only in development mode) */}
           {assets.styles && Object.keys(assets.styles).length === 0 ? (
             <script

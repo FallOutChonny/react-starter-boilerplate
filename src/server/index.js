@@ -14,7 +14,7 @@ import matchRoutes from 'react-router-config/matchRoutes';
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import configureStore from '../configureStore';
 import waitAll from './waitAll';
 import waitChunks from './waitChunks';
@@ -74,15 +74,18 @@ app.use((req, res) => {
   runTasks.done.then(() => {
     const routerContext = {};
     const modules = [];
+    const sheet = new ServerStyleSheet();
     const component = (
       <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-        <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <StaticRouter location={req.url} context={routerContext}>
-              {renderRoutes(routes)}
-            </StaticRouter>
-          </ConnectedRouter>
-        </Provider>
+        <StyleSheetManager sheet={sheet.instance}>
+          <Provider store={store}>
+            <ConnectedRouter history={history}>
+              <StaticRouter location={req.url} context={routerContext}>
+                {renderRoutes(routes)}
+              </StaticRouter>
+            </ConnectedRouter>
+          </Provider>
+        </StyleSheetManager>
       </Loadable.Capture>
     );
 
@@ -90,9 +93,8 @@ app.use((req, res) => {
       res.redirect(routerContext.status || 302, routerContext.url);
     }
 
-    const sheet = new ServerStyleSheet();
-    const content = ReactDOM.renderToString(sheet.collectStyles(component));
-    const styleTags = sheet.getStyleElement();
+    const content = ReactDOM.renderToString(component);
+    const styleTags = sheet.getStyleTags();
     const bundles = getBundles(stats, modules);
     const html = `<!doctype html>${ReactDOM.renderToStaticMarkup(
       <Html
