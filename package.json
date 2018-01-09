@@ -27,6 +27,8 @@
     "helmet": "^3.9.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
+    "preact": "^8.2.7",
+    "preact-compat": "^3.17.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -91,6 +93,7 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "lint-staged": "^4.3.0",
+    "module-alias": "^2.0.3",
     "name-all-modules-plugin": "^1.0.1",
     "node-sass": "^4.5.3",
     "object-assign": "4.1.1",
@@ -202,6 +205,7 @@
       [
         "babel-plugin-styled-components",
         {
+          "displayName": true,
           "ssr": true
         }
       ],
