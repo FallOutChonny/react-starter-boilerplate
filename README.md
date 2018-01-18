@@ -8,15 +8,15 @@ The motivation is simple, Best Development Experience and App performance.
 
 When you start a new react project, you need to do a lot of settings:
 
-1. You have to config `redux` store and middlewares.
-2. You have to config `webpack` for development and production.
-3. If you want to enable hot-reload, you have to config `react-hot-loader`.
-4. If project become large, you need to config `happypack`, `webpack-dll-plugin` to reduce webpack rebuild time.
-4. You have to optimize the performance in production environment.
+1. Configure `redux` store and middlewares.
+2. Configure `webpack` for development and production.
+3. If you want to enable hot-reload for dev, you have to setup `react-hot-loader`.
+4. If project become large, you need to setup `happypack`, `webpack-dll-plugin` to reduce webpack rebuild time.
+4. You have to optimize the performance in production.
 
-All of the settings are very complicated, and ff you want to go server-side rendering, it will be more complicated.
+All of the settings are very complicated, and if you want to go server-side rendering, it will be more complicated.
 
-So I created this project and covers all the above settings, let you can focus on writing components, handling data flow and business logic.
+So I created this project and covers all the above settings, let you can focus on writing components, handling data flow and business logic.
 
 ## Features
 
@@ -123,6 +123,10 @@ It correctly bundles React in production mode and optimizes the build for the be
 ### `npm run lint`
 
 Run ESLint (code quality tool) that checks for problems in your app code.
+
+## Folder Structure
+
+...
 
 ## How To Create A Route
 
