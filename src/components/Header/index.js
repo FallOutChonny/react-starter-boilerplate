@@ -35,17 +35,17 @@ export default class extends React.PureComponent {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/aboutus">
+                <NavLink tag={RRNavLink} to="/about">
                   <Span>About</Span>
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/">
-                  <Span>Contact Us</Span>
+                <NavLink tag={RRNavLink} to="/news">
+                  <Span>News</Span>
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/">
+                <NavLink tag={RRNavLink} to="/login">
                   <Span>Login</Span>
                 </NavLink>
               </NavItem>
