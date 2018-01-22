@@ -57,7 +57,7 @@ if (process.env.DLL === 'true') {
       }
     } else {
       console.log(stats.toString({ colors: true }));
-      console.log(chalk.green('Compiled successfully.\n'));
+      console.log(chalk.green('DLL file was generated successfully \nthe file is stored in build/dll folder.\n'));
     }
   });
 }
