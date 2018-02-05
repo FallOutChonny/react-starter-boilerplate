@@ -7,6 +7,7 @@ import H1 from './H1';
 import H2 from './H2';
 import H6 from './H6';
 import ImageBox from './ImageBox';
+import Card from './Card';
 
 const AboutWrapper = styled.div`
   margin-top: 30px;
@@ -64,14 +65,7 @@ export default function About() {
             <H6>Our Team</H6>
           </Col>
           {datas.map(profile => (
-            <Col
-              lg={3}
-              md={3}
-              sm={4}
-              xs={12}
-              key={profile.id}
-              style={{ marginTop: '25px' }}
-            >
+            <Card key={profile.id}>
               <ImageBox
                 avatar={profile.avatar}
                 facebook={profile.facebook}
@@ -81,7 +75,7 @@ export default function About() {
               <H1>{profile.name}</H1>
               <H2>{profile.position}</H2>
               <p>{profile.introudction}</p>
-            </Col>
+            </Card>
           ))}
         </Row>
       </Container>

@@ -1,6 +1,7 @@
 'use strict'
 
 process.env.NODE_ENV = 'production';
+process.env.BABEL_ENV = 'production';
 process.env.BUNDLE_ANALYZE = true;
 
 // Makes the script crash on unhandled rejections instead of silently

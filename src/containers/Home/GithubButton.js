@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 const LinkButton = styled.a.attrs({
   className: 'btn btn-lg btn-secondary',
   role: 'button',
-  href: 'https://github.com/chonnychu31/react-starter-boilerplate',
+  href: 'https://github.com/FallOutChonny/react-starter-boilerplate',
 })`
   border-width: 2px;
   background: 0 0;

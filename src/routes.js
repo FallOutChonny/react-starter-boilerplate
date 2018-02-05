@@ -3,7 +3,7 @@ import Home from './containers/Home';
 import About from './containers/About';
 import NotFound from './containers/NotFound';
 
-export default function createRoutes(store) {
+export default function createRoutes(/* store */) {
   // eslint-disable-line
   return [
     {

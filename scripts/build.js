@@ -20,21 +20,20 @@ require('../config/env');
 const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
-const webpack = require('webpack');
-const config = require('../config/webpack.config');
-const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
-const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
+const {
+  measureFileSizesBeforeBuild,
+  printFileSizesAfterBuild
+} = require('react-dev-utils/FileSizeReporter');
+const { compile, createConfig } = require('../config/webpack');
+const paths = require('../config/paths');
 
-const measureFileSizesBeforeBuild =
-  FileSizeReporter.measureFileSizesBeforeBuild;
-const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
+if (!checkRequiredFiles([paths.appIndexJs, paths.appServerIndexJs])) {
   process.exit(1);
 }
 
@@ -75,7 +74,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
-      const publicPath = config.output.publicPath;
+      const publicPath = paths.servedPath;
       const buildFolder = path.relative(process.cwd(), paths.appBuild);
       printHostingInstructions(
         appPackage,
@@ -96,34 +95,74 @@ measureFileSizesBeforeBuild(paths.appBuild)
 function build(previousFileSizes) {
   console.log('Creating an optimized production build...');
 
-  let compiler = webpack(config);
+  const clientConfig = createConfig('web');
+  const serverConfig = createConfig('node');
+
+  const clientCompiler = compile(clientConfig);
+  const serverCompiler = compile(serverConfig);
+
+  console.log('Compiling client...');
+
   return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err) {
-        return reject(err);
+    clientCompiler.run((clientErr, clientStats) => {
+      if (clientErr) {
+        return reject(clientErr);
       }
-      const messages = formatWebpackMessages(stats.toJson({}, true));
-      if (messages.errors.length) {
+      const clientMessages = formatWebpackMessages(
+        clientStats.toJson({}, true)
+      );
+      if (clientMessages.errors.length) {
         // Only keep the first error. Others are often indicative
         // of the same problem, but confuse the reader with noise.
-        if (messages.errors.length > 1) {
-          messages.errors.length = 1;
+        if (clientMessages.errors.length > 1) {
+          clientMessages.errors.length = 1;
         }
-        return reject(new Error(messages.errors.join('\n\n')));
+        return reject(new Error(clientMessages.errors.join('\n\n')));
       }
-      if (process.env.CI && messages.warnings.length) {
+      if (process.env.CI && clientMessages.warnings.length) {
         console.log(
           chalk.yellow(
             '\nTreating warnings as errors because process.env.CI = true.\n' +
               'Most CI servers set it automatically.\n'
           )
         );
-        return reject(new Error(messages.warnings.join('\n\n')));
+        return reject(new Error(clientMessages.warnings.join('\n\n')));
       }
-      return resolve({
-        stats,
-        previousFileSizes,
-        warnings: messages.warnings,
+
+      console.log(chalk.green('Compiled client successfully.'));
+      console.log('Compiling server...');
+
+      serverCompiler.run((serverErr, serverStats) => {
+        if (serverErr) {
+          reject(serverErr);
+        }
+        const serverMessages = formatWebpackMessages(
+          serverStats.toJson({}, true)
+        );
+        if (serverMessages.errors.length) {
+          return reject(new Error(serverMessages.errors.join('\n\n')));
+        }
+        if (process.env.CI && serverMessages.warnings.length) {
+          console.log(
+            chalk.yellow(
+              '\nTreating warnings as errors because process.env.CI = true.\n' +
+                'Most CI servers set it automatically.\n'
+            )
+          );
+          return reject(new Error(serverMessages.warnings.join('\n\n')));
+        }
+
+        console.log(chalk.green('Compiled server successfully.'));
+
+        return resolve({
+          stats: clientStats,
+          previousFileSizes,
+          warnings: Object.assign(
+            {},
+            clientMessages.warnings,
+            serverMessages.warnings
+          ),
+        });
       });
     });
   });

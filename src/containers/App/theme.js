@@ -1,6 +1,6 @@
 /**
- * Global theme variables, you can access them within styled-components
- * via prop.theme, such as prop.theme.brandPrimary.
+ * Global theme variables, you can it them via prop within styled components,
+ * such as background-color ${prop => prop.theme.brandPrimary}.
  */
 export default {
   brandPrimary: '#62dafa',

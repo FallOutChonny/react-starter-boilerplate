@@ -7,13 +7,6 @@ function parseJSON(response) {
   return response.body;
 }
 
-// function parseText(response) {
-//   if (response.status === 204 || response.status === 205) {
-//     return null;
-//   }
-//   return response.text;
-// }
-
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -24,27 +17,18 @@ function checkStatus(response) {
   throw error;
 }
 
-export const get = (url, options = {}) => {
+function callApi(method, url, options) {
   const { params, accept } = options;
-  return request
-    .get(url)
+  return request[method](url)
     .query(params)
     .set('Accept', accept || 'json')
     .then(checkStatus)
     .then(parseJSON);
-};
-
-export const post = (url, options = {}) => {
-  const { params, accept } = options;
-  return request
-    .post(url)
-    .send(params)
-    .set('Accept', accept || 'json')
-    .then(checkStatus)
-    .then(parseJSON);
-};
+}
 
 export default {
-  post,
-  get,
+  post: (url, options = {}) => callApi('POST', url, options),
+  get: (url, options = {}) => callApi('GET', url, options),
+  put: (url, options = {}) => callApi('PUT', url, options),
+  delete: (url, options = {}) => callApi('DELETE', url, options),
 };

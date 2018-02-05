@@ -1,6 +1,8 @@
 {
   "name": "react-starter-boilerplate",
+  "version": "0.8.7",
   "description": "A starter kit for universal react app",
+  "author": "ChonnyChu <mama.whowho@gmail.com>",
   "keywords": [
     "bootstrap 4",
     "code splitting",
@@ -18,107 +20,13 @@
     "universal",
     "webpack"
   ],
-  "version": "0.0.1",
-  "dependencies": {
-    "bootstrap": "^4.0.0-beta.2",
-    "chokidar": "^2.0.0",
-    "express": "^4.16.2",
-    "font-awesome": "^4.7.0",
-    "helmet": "^3.9.0",
-    "history": "^4.7.2",
-    "immutable": "^3.8.2",
-    "preact": "^8.2.7",
-    "preact-compat": "^3.17.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-helmet": "^5.2.0",
-    "react-hot-loader": "^3.1.3",
-    "react-loadable": "^5.3.1",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "react-router-config": "^1.0.0-beta.4",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "^5.0.0-alpha.8",
-    "reactstrap": "next",
-    "redux": "^3.7.2",
-    "redux-immutable": "^4.0.0",
-    "redux-saga": "^0.16.0",
-    "reselect": "^3.0.1",
-    "serialize-javascript": "^1.4.0",
-    "serve-favicon": "^2.4.5",
-    "styled-components": "^2.4.0",
-    "superagent": "^3.8.0"
+  "repository": {
+    "url": "https://github.com/FallOutChonny/react-starter-boilerplate",
+    "type": "git"
   },
-  "devDependencies": {
-    "assets-webpack-plugin": "^3.5.1",
-    "autoprefixer": "7.1.6",
-    "babel-eslint": "8.0.1",
-    "babel-jest": "21.2.0",
-    "babel-loader": "7.1.2",
-    "babel-plugin-styled-components": "^1.3.0",
-    "babel-plugin-system-import-transformer": "^3.1.0",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-plugin-transform-imports": "^1.4.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react-app": "^3.0.3",
-    "babel-preset-stage-0": "^6.24.1",
-    "better-npm-run": "^0.1.0",
-    "bootstrap-loader": "^2.2.0",
-    "cache-loader": "^1.1.0",
-    "case-sensitive-paths-webpack-plugin": "2.1.1",
-    "chalk": "2.3.0",
-    "clean-webpack-plugin": "^0.1.17",
-    "concurrently": "^3.5.1",
-    "css-loader": "0.28.7",
-    "dotenv": "4.0.0",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-react-app": "^2.0.1",
-    "eslint-loader": "1.9.0",
-    "eslint-plugin-flowtype": "2.39.1",
-    "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-jsx-a11y": "6.0.2",
-    "eslint-plugin-react": "^7.4.0",
-    "extract-text-webpack-plugin": "3.0.1",
-    "file-loader": "1.1.5",
-    "flow-bin": "^0.57.3",
-    "font-awesome-webpack": "0.0.5-beta.2",
-    "fs-extra": "4.0.2",
-    "happypack": "^4.0.0",
-    "html-webpack-plugin": "2.30.1",
-    "husky": "^0.14.3",
-    "jest": "21.2.1",
-    "less": "^2.7.3",
-    "less-loader": "^4.0.5",
-    "lint-staged": "^4.3.0",
-    "module-alias": "^2.0.3",
-    "name-all-modules-plugin": "^1.0.1",
-    "node-sass": "^4.5.3",
-    "object-assign": "4.1.1",
-    "piping": "^1.0.0-rc.4",
-    "postcss-flexbugs-fixes": "3.2.0",
-    "postcss-loader": "2.0.8",
-    "prettier": "^1.7.4",
-    "promise": "8.0.1",
-    "react-dev-utils": "4.1.0",
-    "react-error-overlay": "2.0.2",
-    "redux-devtools": "^3.4.0",
-    "redux-devtools-dock-monitor": "^1.1.2",
-    "redux-devtools-log-monitor": "^1.3.0",
-    "resolve-url-loader": "^2.1.1",
-    "sass-loader": "^6.0.6",
-    "style-loader": "0.19.0",
-    "sw-precache-webpack-plugin": "0.11.4",
-    "url-loader": "0.6.2",
-    "webpack": "^3.8.1",
-    "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-middleware": "^2.0.3",
-    "webpack-dev-server": "2.9.3",
-    "webpack-hot-middleware": "^2.20.0",
-    "webpack-isomorphic-tools": "^3.0.5",
-    "webpack-manifest-plugin": "1.3.2"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FallOutChonny/react-starter-boilerplate/issues/"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -131,43 +39,15 @@
     "analyze": "node scripts/analyze.js",
     "build": "node scripts/build.js",
     "build:dll": "DLL=true node scripts/buildDLL.js",
-    "dev":
-      "concurrently --kill-others \"npm run start:dev\" \"npm run watch-client\"",
     "flow": "flow",
     "lint": "eslint -c .eslintrc src",
     "postinstall": "npm run build:dll",
     "postsetup": "npm run build:dll",
     "precommit": "lint-staged",
-    "watch-client": "better-npm-run watch-client",
-    "start": "npm run start:prod",
-    "start:dev": "better-npm-run start:dev",
-    "start:prod": "better-npm-run start:prod",
+    "start": "node scripts/start.js",
+    "start:dev": "node scripts/start.js",
+    "start:prod": "node build/server.js",
     "test": "node scripts/test.js --env=jsdom"
-  },
-  "betterScripts": {
-    "start:prod": {
-      "command": "node ./server.js",
-      "env": {
-        "BABEL_ENV": "production",
-        "NODE_ENV": "production",
-        "NODE_PATH": "./src"
-      }
-    },
-    "start:dev": {
-      "command": "node ./server.js",
-      "env": {
-        "BABEL_ENV": "development",
-        "NODE_ENV": "development",
-        "PORT": 3000
-      }
-    },
-    "watch-client": {
-      "command": "node scripts/start.js",
-      "env": {
-        "NODE_ENV": "development",
-        "PORT": 3000
-      }
-    }
   },
   "jest": {
     "collectCoverageFrom": ["src/**/*.{js,jsx}"],
@@ -191,17 +71,22 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
-          "modules": false
+          "modules": false,
+          "targets": {
+            "node": "current"
+          },
+          "useBuiltIns": "usage"
         }
       ],
-      "es2015",
-      "react-app",
-      "stage-0"
+      "@babel/preset-react",
+      "@babel/preset-stage-0",
+      "@babel/preset-flow"
     ],
     "plugins": [
-      "system-import-transformer",
+      "@babel/plugin-transform-runtime",
+      "@babel/plugin-syntax-dynamic-import",
       [
         "babel-plugin-styled-components",
         {
@@ -213,7 +98,7 @@
         "transform-imports",
         {
           "reactstrap": {
-            "transform": "react-bootstrap/lib/${member}",
+            "transform": "reactstrap/lib/${member}",
             "preventFullImport": true
           },
           "react-router-dom": {
@@ -222,14 +107,98 @@
           }
         }
       ],
-      "transform-object-rest-spread",
       "transform-export-extensions",
       "react-hot-loader/babel",
       "react-loadable/babel"
-    ]
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          [
+            "babel-plugin-transform-react-remove-prop-types",
+            {
+              "removeImport": true
+            }
+          ],
+          "@babel/plugin-transform-react-constant-elements",
+          "@babel/plugin-transform-react-inline-elements"
+        ]
+      },
+      "development": {
+        "presets": [
+          [
+            "@babel/preset-react",
+            {
+              "development": true
+            }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "targets": {
+                "node": "6.12"
+              }
+            }
+          ]
+        ],
+        "plugins": ["dynamic-import-node"]
+      }
+    }
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "sourceType": "module"
+    },
+    "extends": "airbnb",
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true,
+      "jest": true
+    },
+    "plugins": ["flowtype", "redux-saga", "jsx-a11y", "react", "import"],
+    "rules": {
+      "arrow-parens": "off",
+      "comma-dangle": "off",
+      "global-require": "off",
+      "no-unreachable": "warn",
+      "no-unused-vars": "warn",
+      "no-console": "off",
+      "function-paren-newline": "off",
+      "jsx-a11y/href-no-hash": "off",
+      "object-curly-newline": "off",
+      "import/no-extraneous-dependencies": "off",
+      "react/jsx-filename-extension": [
+        "warn",
+        {
+          "extensions": [".js", ".jsx"]
+        }
+      ],
+      "react/prefer-stateless-function": [
+        "warn",
+        {
+          "ignorePureComponents": true
+        }
+      ]
+    },
+    "globals": {
+      "__DEVELOPMENT__": true,
+      "__CLIENT__": true,
+      "__SERVER__": true,
+      "__DEVTOOLS__": true,
+      "__DLLS__": true,
+      "__DISABLE_SSR__": true
+    }
   },
   "dllConfig": {
     "path": "./build/dll",
@@ -273,5 +242,118 @@
     "reselect",
     "styled-components",
     "superagent"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "express": "^4.16.2",
+    "font-awesome": "^4.7.0",
+    "helmet": "^3.9.0",
+    "history": "^4.7.2",
+    "immutable": "^3.8.2",
+    "preact": "^8.2.7",
+    "preact-compat": "^3.17.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
+    "react-hot-loader": "^3.1.3",
+    "react-loadable": "^5.3.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-config": "^1.0.0-beta.4",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "reactstrap": "next",
+    "redux": "^3.7.2",
+    "redux-immutable": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
+    "serialize-javascript": "^1.4.0",
+    "serve-favicon": "^2.4.5",
+    "styled-components": "^3.1.4",
+    "superagent": "^3.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.38",
+    "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.38",
+    "@babel/plugin-transform-react-constant-elements": "7.0.0-beta.38",
+    "@babel/plugin-transform-react-inline-elements": "7.0.0-beta.38",
+    "@babel/plugin-transform-runtime": "7.0.0-beta.38",
+    "@babel/polyfill": "7.0.0-beta.38",
+    "@babel/preset-env": "7.0.0-beta.38",
+    "@babel/preset-flow": "7.0.0-beta.38",
+    "@babel/preset-react": "7.0.0-beta.38",
+    "@babel/preset-stage-0": "7.0.0-beta.38",
+    "@babel/register": "7.0.0-beta.38",
+    "@babel/runtime": "7.0.0-beta.38",
+    "assets-webpack-plugin": "^3.5.1",
+    "autoprefixer": "7.1.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "8.0.1",
+    "babel-jest": "^22.1.0",
+    "babel-loader": "8.0.0-beta.0",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-styled-components": "^1.5.0",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-imports": "^1.4.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
+    "bootstrap-loader": "^2.2.0",
+    "cache-loader": "^1.1.0",
+    "case-sensitive-paths-webpack-plugin": "2.1.1",
+    "chalk": "2.3.0",
+    "css-loader": "0.28.7",
+    "dotenv": "4.0.0",
+    "enzyme": "^3.3.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "1.9.0",
+    "eslint-plugin-flowtype": "2.39.1",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-redux-saga": "^0.6.0",
+    "extract-text-webpack-plugin": "3.0.1",
+    "file-loader": "1.1.5",
+    "flow-bin": "^0.57.3",
+    "font-awesome-webpack": "0.0.5-beta.2",
+    "fs-extra": "4.0.2",
+    "happypack": "^4.0.0",
+    "html-webpack-plugin": "2.30.1",
+    "husky": "^0.14.3",
+    "jest": "^22.1.4",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "lint-staged": "^6.0.1",
+    "module-alias": "^2.0.3",
+    "name-all-modules-plugin": "^1.0.1",
+    "node-sass": "^4.5.3",
+    "object-assign": "4.1.1",
+    "postcss-flexbugs-fixes": "3.2.0",
+    "postcss-loader": "2.0.8",
+    "prettier": "^1.7.4",
+    "promise": "8.0.1",
+    "raf": "^3.4.0",
+    "react-dev-utils": "4.1.0",
+    "react-error-overlay": "2.0.2",
+    "redux-devtools": "^3.4.0",
+    "redux-devtools-dock-monitor": "^1.1.2",
+    "redux-devtools-log-monitor": "^1.3.0",
+    "resolve-url-loader": "^2.1.1",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.6",
+    "start-server-webpack-plugin": "^2.2.0",
+    "style-loader": "0.19.0",
+    "svgr": "^1.7.0",
+    "sw-precache-webpack-plugin": "0.11.4",
+    "thread-loader": "^1.1.2",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-dev-middleware": "^2.0.4",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-hot-middleware": "^2.21.0",
+    "webpack-manifest-plugin": "1.3.2",
+    "webpack-node-externals": "^1.6.0"
+  }
 }

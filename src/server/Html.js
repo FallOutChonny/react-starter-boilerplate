@@ -27,21 +27,16 @@ class Html extends React.PureComponent {
             content="react-starter-boilerplate"
           />
           <meta name="theme-color" content="#ffffff" />
-          {/* styles (will be present only in production with webpack extract text plugin) */}
-          {assets.styles &&
-            Object.keys(assets.styles).map(style => (
-              <link
-                href={assets.styles[style]}
-                media="screen, projection"
-                rel="stylesheet"
-                type="text/css"
-              />
-            ))}
-          {/* (will be present only in development mode) */}
-          {assets.styles && Object.keys(assets.styles).length === 0 ? (
+          {assets.vendor ? (
+            <link href={assets.vendor.css} rel="stylesheet" />
+          ) : (
+            ''
+          )}
+          {assets.main ? <link href={assets.main.css} rel="stylesheet" /> : ''}
+          {!__DEVELOPMENT__ ? styleTags : null}
+          {assets.main && !assets.main.css ? (
             <style dangerouslySetInnerHTML={{ __html: '#app{display:none}' }} />
           ) : null}
-          {!__DEVELOPMENT__ ? styleTags : null}
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: content }} />
@@ -51,13 +46,12 @@ class Html extends React.PureComponent {
             }}
           />
           {__DLLS__ && <script src="/dll/vendor.dll.js" />}
-          {assets.javascript && <script src={assets.javascript.vendor} />}
-          {assets.javascript && <script src={assets.javascript.main} />}
-          {bundles.map(u => (
-            <script key={u.id} src={`${publicUrl}/${u.file}`} />
+          {assets.vendor && <script src={assets.vendor.js} />}
+          {assets.main && <script src={assets.main.js} />}
+          {bundles.map(x => (
+            <script key={x.id} src={`${publicUrl}/${x.file}`} />
           ))}
-          {/* (will be present only in development mode) */}
-          {assets.styles && Object.keys(assets.styles).length === 0 ? (
+          {assets.main && !assets.main.css ? (
             <script
               dangerouslySetInnerHTML={{
                 __html: 'document.getElementById("app").style.display="block";',
@@ -72,8 +66,8 @@ class Html extends React.PureComponent {
 
 Html.propTypes = {
   assets: PropTypes.shape({
-    styles: PropTypes.object,
-    javascript: PropTypes.object,
+    vendor: PropTypes.object,
+    main: PropTypes.object,
   }),
   styleTags: PropTypes.node,
   bundles: PropTypes.arrayOf(PropTypes.object),

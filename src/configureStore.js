@@ -8,7 +8,7 @@ import createReducer from './reducers';
 const configureStore = (history, initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
   const reduxRouterMiddleware = routerMiddleware(history);
-  const middleware = [sagaMiddleware, reduxRouterMiddleware];
+  const middlewares = [sagaMiddleware, reduxRouterMiddleware];
   const enhancers = [];
 
   if (__DEVELOPMENT__ && __CLIENT__) {
@@ -24,7 +24,7 @@ const configureStore = (history, initialState = {}) => {
   const store = createStore(
     reducer,
     fromJS(initialState),
-    compose(applyMiddleware(...middleware), ...enhancers)
+    compose(applyMiddleware(...middlewares), ...enhancers)
   );
 
   rootSaga.runSagas(sagaMiddleware);

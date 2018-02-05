@@ -39,7 +39,13 @@ class App extends React.PureComponent {
 App.propTypes = {
   route: PropTypes.shape({
     routes: PropTypes.array,
-  }).isRequired,
+  }),
+};
+
+App.defaultProps = {
+  route: {
+    routes: [],
+  },
 };
 
 export default App;
