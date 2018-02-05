@@ -25,12 +25,6 @@ const assets = require(process.env.ASSETS_MANIFEST);
 
 const app = express();
 
-// let stats = {};
-
-// (async () => { stats = await waitChunks(); })();
-
-// console.log(stats);
-
 app.use(compression());
 
 // Serve static assets
