@@ -112,7 +112,7 @@ choosePort(HOST, DEFAULT_PORT)
 
     clientDevServer.listen(port, err => {
       if (err) {
-        logger.error(err);
+        console.error(err);
       }
     });
 
