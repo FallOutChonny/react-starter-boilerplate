@@ -8,11 +8,13 @@ The motivation is simple, Best Development Experience and App performance.
 
 When you start a new react project, you need to do a lot of settings:
 
-1. Configure `redux` store and middlewares.
-2. Configure `webpack` for development and production.
-3. If you want to enable hot-reload for dev, you have to setup `react-hot-loader`.
-4. If project become large, you need to setup `happypack`, `webpack-dll-plugin` to reduce webpack rebuild time.
-4. You have to optimize the performance in production.
+1. `redux` store and middlewares as the state management.
+2. `webpack` config for development and production.
+3. Enable Hot-reload.
+4. Configure `babel`, `eslint`, `jest` and more...
+5. If project become larger, you need to setup some plugins such as `happypack`, `webpack-dll-plugin` to reduce webpack build time.
+
+And once app is online, you have to optimize the performance in production.
 
 All of the settings are very complicated, and if you want to go server-side rendering, it will be more complicated.
 
@@ -26,24 +28,26 @@ I put these popular and widely used react/redux ecosystem libraries together and
 * `react-router` v4 as the router.
 * `react-loadable` provides component based code splitting
 * `react-helmet` provides control of the page head from within components.
-* `redux` as the state management container
+* `redux` as the state management container.
 * `redux-saga` deal with asynchronous action flow.
 * `react-router-redux` sync your router with redux state
-* `reselect` to avoid frequent re-render.
+* `reselect` to avoid frequent re-render that improve performance.
 * `reactstrap` react bootstrap 4 components.
 * `immutable.js` provides many persistent Immutable data structures.
 * `styled-components` helps you organize CSS in react project.
 * `bootstrap` v4 for quickly building responsive, mobile-first pages.
 * `font-awesome` as the Icons
+* `babel` v7 for es6+ support and load babel-polyfill on-demand.
+* `superagent` for http request.
 
-## Better Developer Expreience
+## Best Developer Expreience
 
 I've integrated some packages and tools that can reduce webpack initial/rebuild time, hot-reload both on client and server side, and help you debugging application.
 
 * `webpack` v3 for both development and production bundles.
 * `webpack-DLL-plugin`, `cache-loader`, `happypack` for faster rebuild time
-* Hot-reloading using `react-hot-loader`
-* Time travel using `redux-devtools`
+* Hot-reload both client and server-side.
+* State history, playback, enable Time travel with `redux-devtools` (you can also use browser extension).
 * `webpack-bundle-analyzer` to review webpack output files with an interactive zoomable treemap.
 * `Prettier` and `ESLint` keep code style consistency, it will performing code formatting when commit.
 
@@ -52,7 +56,7 @@ You can also install [react-devtools](https://github.com/facebook/react-devtools
 ## Production Ready
 
 * Split vendor libraries from app code.
-* Route and component based code splitting.
+* Route and component level code splitting.
 * Async inject reducer and saga.
 * Offline support via service-worker.
 * Long-term browser caching support.
@@ -73,7 +77,7 @@ This project supports [ES6](https://github.com/lukehoban/es6features) syntax fea
 
 Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-).
 
-## Supported CSS type
+## Supported Style language
 
 You can write `css`, `less` and `scss`, but I recommend you to use [styled-components](https://github.com/styled-components/styled-components) to write your style, it can only ship styles that are on the page so it can effectively reduce the bundle size of css file.
 
@@ -124,6 +128,10 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 Run ESLint (code quality tool) that checks for problems in your app code.
 
+### `npm run start`
+
+Run your server with production build result.
+
 ## Folder Structure
 
 ...
@@ -170,7 +178,6 @@ If you don't want to use `bootstrap` and `font-awesome`, you can easily to remov
 * preact on production
 * Deploy a demo site
 * CLI cmd to create page
-* Rewrite SSR code
 
 ## License
 
