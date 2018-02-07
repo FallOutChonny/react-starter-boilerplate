@@ -2,7 +2,7 @@
   "name": "react-starter-boilerplate",
   "version": "0.8.7",
   "description": "A starter kit for universal react app",
-  "author": "ChonnyChu <mama.whowho@gmail.com>",
+  "author": "Chonny Chu <mama.whowho@gmail.com>",
   "keywords": [
     "bootstrap 4",
     "code splitting",
@@ -28,6 +28,10 @@
   "bugs": {
     "url": "https://github.com/FallOutChonny/react-starter-boilerplate/issues/"
   },
+  "engines": {
+    "npm": ">=3",
+    "node": ">=5"
+  },
   "lint-staged": {
     "src/**/*.js": [
       "prettier --single-quote --trailing-comma es5 --write",
@@ -39,12 +43,14 @@
     "analyze": "node scripts/analyze.js",
     "build": "node scripts/build.js",
     "build:dll": "DLL=true node scripts/buildDLL.js",
+    "deploy": "now --public --force",
     "flow": "flow",
     "lint": "eslint -c .eslintrc src",
     "postinstall": "npm run build:dll",
     "postsetup": "npm run build:dll",
     "precommit": "lint-staged",
-    "start": "node scripts/start.js",
+    "dev": "npm run start:dev",
+    "start": "npm run start:prod",
     "start:dev": "node scripts/start.js",
     "start:prod": "node build/server.js",
     "test": "node scripts/test.js --env=jsdom"
@@ -270,7 +276,7 @@
     "reselect": "^3.0.1",
     "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.4.5",
-    "styled-components": "^3.1.4",
+    "styled-components": "^3.1.6",
     "superagent": "^3.8.0"
   },
   "devDependencies": {
