@@ -1,3 +1,6 @@
+/**
+ * Shared config for both client-side and server-side
+ */
 module.exports = {
   port: process.env.PORT || 3000,
   host: process.env.HOST || 'localhost',
