@@ -272,13 +272,6 @@ module.exports = {
             threadPool: happyThreadPool,
             loaders: [
               {
-                // react-hot-loader/webpack only works on exported components, whereas
-                // react-hot-loader/babel picks up all top-level variables in your files.
-                // As a workaround, with Webpack, you can export all the components whose
-                // state you want to maintain, even if they’re not imported anywhere else.
-                loader: require.resolve('react-hot-loader/webpack'),
-              },
-              {
                 loader: 'cache-loader',
               },
               {
