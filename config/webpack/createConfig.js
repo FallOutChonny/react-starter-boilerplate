@@ -25,8 +25,7 @@ module.exports = (target = 'web', webpackConfig, args) => {
   const isClient = target === 'web';
 
   const publicPath = isDebug ? 'http://localhost:3001/' : paths.servedPath;
-  const publicUrl = isDebug ? '/' : publicPath.slice(0, -1);
-
+  const publicUrl = isDebug ? 'http://localhost:3001' : publicPath.slice(0, -1);
   const isDllExist = fs.existsSync(paths.appDllManifest);
 
   const env = getClientEnvironment(publicUrl);
@@ -175,9 +174,6 @@ module.exports = (target = 'web', webpackConfig, args) => {
                 return context && context.indexOf('node_modules') !== -1;
               },
             }),
-            // The runtime is the part of Webpack that resolves modules
-            // at runtime and handles async loading and more
-            new webpack.optimize.CommonsChunkPlugin({ name: 'runtime' }),
             // Ensure that every chunks have an actual name and not an id
             // If the chunk has a name, this name is used
             // otherwise the name of the file is used
@@ -198,7 +194,7 @@ module.exports = (target = 'web', webpackConfig, args) => {
             // Generates an `index.html` file with the <script> injected.
             new HtmlWebpackPlugin({
               inject: true,
-              template: 'src/pwa.js',
+              template: 'config/html.js',
               minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -245,6 +241,9 @@ module.exports = (target = 'web', webpackConfig, args) => {
             }),
           ]
         : []),
+      // The runtime is the part of Webpack that resolves modules
+      // at runtime and handles async loading and more
+      new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' }),
       // Represents bundle content as convenient interactive zoomable treemap
       ...(isAnalyze
         ? [

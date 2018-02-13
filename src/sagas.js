@@ -1,3 +1,7 @@
+/**
+ * The root saga.
+ */
+
 import { fork, cancel, take, all } from 'redux-saga/effects';
 
 const CANCEL_SAGAS_HMR = 'CANCEL_SAGAS_HMR';

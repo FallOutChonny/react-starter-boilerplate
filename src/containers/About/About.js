@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Container from 'reactstrap/lib/Container';
-import Row from 'reactstrap/lib/Row';
-import Col from 'reactstrap/lib/Col';
+import { Container, Row, Col } from 'reactstrap';
+import { hot } from 'react-hot-loader';
 import H1 from './H1';
 import H2 from './H2';
-import H6 from './H6';
+import H5 from './H5';
+import CardBody from './CardBody';
 import ImageBox from './ImageBox';
 import Card from './Card';
 
@@ -16,53 +16,53 @@ const AboutWrapper = styled.div`
 const datas = [
   {
     id: 1,
-    avatar: 'http://nabeel.co.in/files/bootsnipp/team/1.jpg',
+    avatar: 'http://placehold.it/255x300',
     facebook: 'https://facebook.com',
     twitter: 'https://twitter.com',
     linkedin: 'https://linkedin.com',
-    name: 'Chonny Chu',
+    name: 'Benoite Ernisse',
     position: 'Co-founder/ Operations',
     introudction: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
   },
   {
     id: 2,
-    avatar: 'http://nabeel.co.in/files/bootsnipp/team/2.jpg',
+    avatar: 'http://placehold.it/255x300',
     facebook: 'https://facebook.com',
     twitter: 'https://twitter.com',
     linkedin: 'https://linkedin.com',
-    name: 'Jacky Wu',
+    name: 'Tallulah Mccrosky',
     position: 'Co-founder/ Operations',
     introudction: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
   },
   {
     id: 3,
-    avatar: 'http://nabeel.co.in/files/bootsnipp/team/3.jpg',
+    avatar: 'http://placehold.it/255x300',
     facebook: 'https://facebook.com',
     twitter: 'https://twitter.com',
     linkedin: 'https://linkedin.com',
-    name: 'Chonny Chu',
+    name: 'Shirl Scudder',
     position: 'Co-founder/ Operations',
     introudction: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
   },
   {
     id: 4,
-    avatar: 'http://nabeel.co.in/files/bootsnipp/team/4.jpg',
+    avatar: 'http://placehold.it/255x300',
     facebook: 'https://facebook.com',
     twitter: 'https://twitter.com',
     linkedin: 'https://linkedin.com',
-    name: 'Michael Jackson',
+    name: 'Maible Crower',
     position: 'Co-founder/ Operations',
     introudction: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
   },
 ];
 
-export default function About() {
+function About() {
   return (
     <AboutWrapper>
       <Container>
         <Row>
           <Col md={12}>
-            <H6>Our Team</H6>
+            <H5>Our Team</H5>
           </Col>
           {datas.map(profile => (
             <Card key={profile.id}>
@@ -72,9 +72,11 @@ export default function About() {
                 twitter={profile.twitter}
                 linkedin={profile.linkedin}
               />
-              <H1>{profile.name}</H1>
-              <H2>{profile.position}</H2>
-              <p>{profile.introudction}</p>
+              <CardBody>
+                <H1>{profile.name}</H1>
+                <H2>{profile.position}</H2>
+                <p>{profile.introudction}</p>
+              </CardBody>
             </Card>
           ))}
         </Row>
@@ -82,3 +84,5 @@ export default function About() {
     </AboutWrapper>
   );
 }
+
+export default hot(module)(About);

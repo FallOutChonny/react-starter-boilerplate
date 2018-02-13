@@ -1,7 +1,5 @@
 import React from 'react';
-import Container from 'reactstrap/lib/Container';
-import Col from 'reactstrap/lib/Col';
-import Row from 'reactstrap/lib/Row';
+import { Container, Col, Row } from 'reactstrap';
 import HR from './HR';
 import Ul from './Ul';
 

@@ -57,7 +57,7 @@ module.exports = {
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appServerIndexJs: resolveApp('src/server/index.js'),
-  appIndexJs: resolveApp('src/client.js'),
+  appIndexJs: resolveApp('src/client/index.js'),
   appPackageJson: resolveApp('package.json'),
   appMainfest: resolveApp('build/assets.json'),
   appChunks: resolveApp('build/loadable-chunks.json'),

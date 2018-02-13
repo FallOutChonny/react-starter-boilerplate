@@ -1,3 +1,7 @@
+/**
+ * The root reducer.
+ */
+
 import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { fromJS } from 'immutable';

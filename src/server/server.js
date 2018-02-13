@@ -16,7 +16,7 @@ import { Provider } from 'react-redux';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import configureStore from '../configureStore';
 import waitAll from './waitAll';
-import Html from './Html';
+import createHTML from './createHTML';
 import createRoutes from '../routes';
 
 /* eslint-disable import/no-dynamic-require */
@@ -71,17 +71,16 @@ app.use((req, res) => {
     }
 
     const content = ReactDOM.renderToString(component);
-    const styleTags = sheet.getStyleTags();
     const bundles = getBundles(stats, modules);
-    const html = `<!doctype html>${ReactDOM.renderToStaticMarkup(
-      <Html
-        content={content}
-        preloadState={store.getState()}
-        assets={assets}
-        bundles={bundles}
-        styleTags={styleTags}
-      />
-    )}`;
+    const styles = sheet.getStyleTags();
+    const preloadState = store.getState();
+    const html = createHTML({
+      content,
+      styles,
+      bundles,
+      assets,
+      preloadState,
+    });
 
     res.status(routerContext.status || 200).send(html);
   });

@@ -1,12 +1,14 @@
 import React from 'react';
-import Collapse from 'reactstrap/lib/Collapse';
-import Container from 'reactstrap/lib/Container';
-import Nav from 'reactstrap/lib/Nav';
-import NavItem from 'reactstrap/lib/NavItem';
-import NavLink from 'reactstrap/lib/NavLink';
-import Navbar from 'reactstrap/lib/Navbar';
-import NavbarBrand from 'reactstrap/lib/NavbarBrand';
-import NavbarToggler from 'reactstrap/lib/NavbarToggler';
+import {
+  Collapse,
+  Container,
+  Nav,
+  NavItem,
+  NavLink,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+} from 'reactstrap';
 import RRNavLink from 'react-router-dom/NavLink';
 import Image from './Image';
 import Span from './Span';

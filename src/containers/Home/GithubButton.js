@@ -13,7 +13,7 @@ const LinkButton = styled.a.attrs({
 })`
   border-width: 2px;
   background: 0 0;
-  border-color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.8);
   font-size: 24px;
 `;
 
