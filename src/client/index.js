@@ -30,10 +30,14 @@ const rootEl = document.getElementById('app');
     rootEl
   );
 
+  if (module.hot) {
+    module.hot.accept();
+  }
+
   if (__DEVTOOLS__ && !window.devToolsExtension) {
     const devToolsEl = document.createElement('div');
     window.document.body.insertBefore(devToolsEl, null);
-    const DevTools = require('components/DevTools');
+    const DevTools = require('./createDevTools');
     hydrate(
       <Provider store={store}>
         <DevTools />

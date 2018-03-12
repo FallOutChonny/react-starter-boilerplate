@@ -2,6 +2,8 @@
 
 A starter kit for universal react app, this project is extends from ejected create-react-app.
 
+[Demo](https://react-starter-boilerplate-wdtbmknbib.now.sh)(It still WIP)
+
 ## Motivation
 
 The motivation is simple, Best Development Experience and App performance.

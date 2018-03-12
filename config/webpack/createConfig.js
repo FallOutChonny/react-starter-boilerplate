@@ -30,7 +30,7 @@ module.exports = (target = 'web', webpackConfig, args) => {
 
   const env = getClientEnvironment(publicUrl);
   const envs = Object.assign({}, env.stringified, {
-    __DEVELOPMENT__: isDebug,
+    __DEV__: isDebug,
     __DLLS__: isDebug,
     __DEVTOOLS__: isDebug,
   });
@@ -135,7 +135,9 @@ module.exports = (target = 'web', webpackConfig, args) => {
     // Add client-only plugins
     config.plugins = [
       ...config.plugins,
-      new ReactLoadablePlugin({ filename: path.join(paths.appBuild, 'loadable-chunks.json') }),
+      new ReactLoadablePlugin({
+        filename: path.join(paths.appBuild, 'loadable-chunks.json'),
+      }),
       // Moment.js is an extremely popular library that bundles large locale files
       // by default due to how Webpack interprets its code. This is a practical
       // solution that requires the user to opt into importing specific locales.

@@ -10,7 +10,7 @@
 
 /* eslint-disable no-param-reassign */
 export default function register() {
-  if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
+  if (!__DEV__ && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       navigator.serviceWorker

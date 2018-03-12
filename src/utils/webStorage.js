@@ -1,13 +1,6 @@
 function executeCallback(promise, callback) {
   if (callback) {
-    promise.then(
-      result => {
-        callback(null, result);
-      },
-      error => {
-        callback(error);
-      }
-    );
+    promise.then(result => callback(null, result), error => callback(error));
   }
 }
 
@@ -72,9 +65,7 @@ function openIdbConnection() {
       reslove(db);
     };
 
-    req.onerror = error => {
-      reject(error);
-    };
+    req.onerror = error => reject(error);
   });
 }
 
@@ -368,22 +359,43 @@ const localStorageDriver = {
 // If yout want, you can create another driver like WebSQL, sessionStorage
 const drivers = [idbDriver, localStorageDriver];
 
+/* eslint-disable no-underscore-dangle */
 class WebStorage {
   constructor() {
-    this.driver = drivers.slice();
+    this._driver = drivers.shift();
   }
 
   setDriver(driver) {
-    this.driver = driver;
+    this._driver = driver;
   }
 
-  driver = () => this.driver;
-  getItem = (key, callback) => this.driver.getItem(key, callback);
-  setItem = (key, val, callback) => this.driver.setItem(key, val, callback);
-  removeItem = (key, callback) => this.driver.removeItem(key, callback);
-  clear = callback => this.driver.clear(callback);
-  length = callback => this.driver.length(callback);
-  getAllKeys = callback => this.driver.getAllKeys(callback);
+  driver() {
+    return this._driver;
+  }
+
+  getItem(key, callback) {
+    return this._driver.getItem(key, callback);
+  }
+
+  setItem(key, val, callback) {
+    return this._driver.setItem(key, val, callback);
+  }
+
+  removeItem(key, callback) {
+    return this._driver.removeItem(key, callback);
+  }
+
+  clear(callback) {
+    return this._driver.clear(callback);
+  }
+
+  length(callback) {
+    return this._driver.length(callback);
+  }
+
+  getAllKeys(callback) {
+    return this._driver.getAllKeys(callback);
+  }
 }
 
 export default new WebStorage();

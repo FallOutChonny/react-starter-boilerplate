@@ -1,6 +1,3 @@
-import Loadable from 'react-loadable';
+import asyncComponent from 'components/asyncComponent';
 
-export default Loadable({
-  loader: () => import('./Login'),
-  loading: () => null,
-});
+export default asyncComponent(() => import('./Login'));

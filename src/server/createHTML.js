@@ -21,11 +21,13 @@ export default function createHTML(props) {
     content = '',
   } = props;
   const helmet = Helmet.renderStatic();
+  const htmlAttrs = helmet.htmlAttributes.toString();
+  const bodyAttrs = helmet.bodyAttributes.toString();
   const initialState = serialize(preloadState);
   return `
     <!doctype html>
     <html lang="en">
-      <head>
+      <head ${htmlAttrs}>
         ${helmet.base.toString()}
         ${helmet.title.toString()}
         ${helmet.meta.toString()}
@@ -53,7 +55,7 @@ export default function createHTML(props) {
         ${!isDev ? styles : ''}
         ${isDev ? '<style>#app{display:none}</style>' : ''}
       </head>
-      <body>
+      <body ${bodyAttrs}>
         ${isDev ? styles : ''}
         <div id="app">${content}</div>
         ${`<script>window.__INITIAL_STATE__=${initialState};</script>`}

@@ -14,6 +14,7 @@ import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import cookies from '../utils/cookies';
 import configureStore from '../configureStore';
 import waitAll from './waitAll';
 import createHTML from './createHTML';
@@ -37,7 +38,10 @@ app.use(
 app.use(helmet());
 app.use(favicon(path.join(process.cwd(), '/public/favicon.ico')));
 
+// TODO: renderToNodeStream
 app.use((req, res) => {
+  cookies.setRawCookies(req.headers.cookie);
+
   const history = createHistory(req.originalUrl);
   const store = configureStore(history);
   const routes = createRoutes(store);

@@ -2,7 +2,7 @@
 
 /**
  * This project uses @babel/runtime to load polyfills on demand, so no need to
- * require Libraries like Promise, object-assign, fetch and etc. I just comment
+ * require Libraries like Promise, object-assign and etc. I just comment
  * whatwg-fetch, if you prefer to use fetch. just uncomment and remove superagent
  * in dependencies and appVendors from within package.json.
  */

@@ -3,17 +3,18 @@
  */
 
 import { fork, cancel, take, all } from 'redux-saga/effects';
+import globalSagas from './containers/App/saga';
 
-const CANCEL_SAGAS_HMR = 'CANCEL_SAGAS_HMR';
+const CANCEL_SAGAS_HMR = '@@saga/cancel-sagas-hmr';
 
 function* sagas() {
-  yield all([]);
+  yield all([...globalSagas]);
 }
 
 const rootSaga = [sagas];
 
-const abortableSaga = saga => {
-  if (__DEVELOPMENT__) {
+const createAbortableSaga = saga => {
+  if (__DEV__) {
     return function* main() {
       const sagaTask = yield fork(saga);
       yield take(CANCEL_SAGAS_HMR);
@@ -25,7 +26,7 @@ const abortableSaga = saga => {
 
 export default {
   runSagas(sagaMiddleware) {
-    rootSaga.map(abortableSaga).forEach(saga => sagaMiddleware.run(saga));
+    rootSaga.map(createAbortableSaga).forEach(saga => sagaMiddleware.run(saga));
   },
 
   cancelSagas(store) {

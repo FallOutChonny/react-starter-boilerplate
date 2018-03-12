@@ -29,6 +29,7 @@ function printInstructions(appName, urls, useYarn) {
 }
 
 function compile(config) {
+  let compiler;
   try {
     compiler = webpack(config);
   } catch (err) {
@@ -92,7 +93,12 @@ function createCompilationPromise(compiler) {
   return new Promise((resolve, reject) => {
     compiler.plugin('done', stats => {
       if (stats.hasErrors()) {
-        reject(new Error('Failed to compile'));
+        reject(
+          new Error(
+            formatWebpackMessages(stats.toJson({}, true)).errors.join('\n\n')
+          )
+        );
+        console.log(chalk.red('Failed to compile.\n'));
       }
 
       resolve(stats);
