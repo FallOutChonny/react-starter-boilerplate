@@ -45,9 +45,8 @@ export const login = () => ({
   type: LOGIN_REQUEST,
 });
 
-export const loginSuccess = username => ({
+export const loginSuccess = () => ({
   type: LOGIN_SUCCESS,
-  loggedIn: username,
 });
 
 export const loginFail = error => ({

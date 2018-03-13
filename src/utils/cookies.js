@@ -42,7 +42,6 @@ class Cookies {
 
   setRawCookies(cookies) {
     this.cookies = parseCookies(cookies);
-    console.log(this.cookies);
   }
 
   _updateBrowserValues() {

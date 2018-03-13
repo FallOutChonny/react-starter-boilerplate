@@ -14,7 +14,7 @@ import {
   Button,
 } from 'reactstrap';
 import RRNavLink from 'react-router-dom/NavLink';
-import { logout } from 'containers/App/actions';
+import { logout } from 'containers/App/reducer';
 import { makeGetLoggedIn } from 'containers/App/selectors';
 import Image from './Image';
 import Span from './Span';
@@ -31,7 +31,11 @@ import logo from './logo.png';
 class Header extends React.PureComponent {
   static propTypes = {
     logout: PropTypes.func.isRequired,
-    loggedIn: PropTypes.string.isRequired,
+    loggedIn: PropTypes.string,
+  };
+
+  static defaultProps = {
+    loggedIn: '',
   };
 
   constructor(props) {

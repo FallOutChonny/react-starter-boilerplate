@@ -1,6 +1,7 @@
 import { all, put, fork, takeEvery, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { constants, actions } from './reducer';
+import { setAuth } from '../App/reducer';
 import { makeGetForm } from './selectors';
 import { login } from '../../utils/auth';
 
@@ -18,8 +19,7 @@ function* loginRequest() {
   }
 
   if (!response.error) {
-    yield put(loginSuccess(username));
-    yield put(push('/'));
+    yield all([put(loginSuccess()), put(setAuth(username)), put(push('/'))]);
   }
 }
 

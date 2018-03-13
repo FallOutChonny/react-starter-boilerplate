@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
 
-const selectGlobal = state => state.get('global');
+const globalSelector = state => state.get('global');
 
-export const makeGetLoggedIn = () =>
-  createSelector(selectGlobal, globalState => globalState.get('loggedIn'));
+// prettier-ignore
+export const makeGetLoggedIn = () => createSelector(
+  globalSelector,
+  globalState => globalState.get('loggedIn')
+);

@@ -7,12 +7,15 @@ import { ThemeProvider } from 'styled-components';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import ErrorBoundary from './ErrorBoundary';
+import { loadAuthIfNeed } from './saga';
 import theme from './theme';
 
 class App extends React.PureComponent {
   static propTypes = {
     route: PropTypes.shape({ routes: PropTypes.array }).isRequired,
   };
+
+  static preLoad = () => [[loadAuthIfNeed]];
 
   render() {
     const { route } = this.props;

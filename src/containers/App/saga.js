@@ -1,26 +1,31 @@
-import { put, fork, take, takeEvery } from 'redux-saga/effects';
+import { put, fork, takeEvery, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import { logout } from 'utils/auth';
-import * as types from './constants';
-import { setAuth } from './actions';
-import { LOGIN_SUCCESS } from '../Login/reducer';
+import * as auth from 'utils/auth';
+import { actions, constants } from './reducer';
+import { makeGetLoggedIn } from './selectors';
+
+const { logoutSuccess, setAuth } = actions;
+const { LOGOUT_REQUEST } = constants;
+
+function* loadAuthIfNeed() {
+  const currentUser = auth.loggedIn();
+  const loggedIn = yield select(makeGetLoggedIn());
+
+  if (!loggedIn && currentUser) {
+    yield put(setAuth(currentUser));
+  }
+}
 
 function* logoutRequest() {
-  yield logout();
-  yield put({ type: types.LOGOUT_SUCCESS });
+  auth.logout();
+  yield put(logoutSuccess());
   yield put(push('/'));
 }
 
 function* watchLogoutRequest() {
-  yield takeEvery(types.LOGOUT_REQUEST, logoutRequest);
+  yield takeEvery(LOGOUT_REQUEST, logoutRequest);
 }
 
-function* watchLoginSuccess() {
-  while (true) {
-    const { loggedIn } = yield take(LOGIN_SUCCESS);
+export { loadAuthIfNeed };
 
-    yield put(setAuth(loggedIn));
-  }
-}
-
-export default [fork(watchLogoutRequest), fork(watchLoginSuccess)];
+export default [fork(watchLogoutRequest)];
