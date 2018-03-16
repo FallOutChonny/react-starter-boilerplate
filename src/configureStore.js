@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import createSagaMiddleware, { END } from 'redux-saga';
@@ -11,13 +12,17 @@ function configureStore(history, initialState = {}) {
   const middlewares = [sagaMiddleware, reduxRouterMiddleware];
   const enhancers = [];
 
-  if (__DEV__ && __CLIENT__) {
-    const { persistState } = require('redux-devtools');
-    const { devToolsExtension: devToolsExt, location: { href } } = window;
+  if (__CLIENT__ && __DEV__ && !window.__REDUX_DEVTOOLS_EXTENSION__) {
+    const { persistState } = require('redux-devtools').default;
     const DevTools = require('./client/createDevTools').default;
-    const devTools = devToolsExt ? devToolsExt() : DevTools.instrument();
-    enhancers.push(devTools);
-    enhancers.push(persistState(href.match(/[?&]debug_session=([^&]+)\b/)));
+    enhancers.push(DevTools.instrument());
+    enhancers.push(
+      persistState(window.location.href.match(/[?&]debug_session=([^&#]+)\b/))
+    );
+  }
+
+  if (__CLIENT__ && window.__REDUX_DEVTOOLS_EXTENSION__) {
+    enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
   }
 
   const store = createStore(
@@ -32,7 +37,7 @@ function configureStore(history, initialState = {}) {
   store.asyncSagas = {};
   store.close = () => store.dispatch(END);
 
-  if (__DEV__ && module.hot) {
+  if (module.hot) {
     module.hot.accept('./reducers', () => {
       const nextCreateReducer = require('./reducers').default;
       store.replaceReducer(nextCreateReducer(store.asyncReducers));

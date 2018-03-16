@@ -5,6 +5,6 @@ export default styled.span`
   font-size: 1.125rem;
 
   &:hover {
-    color: ${props => props.theme.brandPrimary};
+    color: ${props => props.theme.primary};
   }
 `;

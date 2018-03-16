@@ -2,8 +2,6 @@
 
 A starter kit for universal react app, this project is extends from ejected create-react-app.
 
-[Demo](https://react-starter-boilerplate-wdtbmknbib.now.sh)(It still WIP)
-
 ## Motivation
 
 The motivation is simple, Best Development Experience and App performance.
@@ -16,15 +14,13 @@ When you start a new react project, you need to do a lot of settings:
 4. Configure `babel`, `eslint`, `jest` and more...
 5. If project become larger, you need to setup some plugins such as `happypack`, `webpack-dll-plugin` to reduce webpack build time.
 
-And once app is online, you have to optimize the performance in production.
+And once app is online, you have to optimize the performance for production.
 
 All of the settings are very complicated, and if you want to go server-side rendering, it will be more complicated.
 
 So I created this project and covers all the above settings, let you can focus on writing components, handling data flow and business logic.
 
 ## Features
-
-I put these popular and widely used react/redux ecosystem libraries together and already set up in this project.
 
 * `react` as the view.
 * `react-router` v4 as the router.
@@ -34,22 +30,18 @@ I put these popular and widely used react/redux ecosystem libraries together and
 * `redux-saga` deal with asynchronous action flow.
 * `react-router-redux` sync your router with redux state
 * `reselect` to avoid frequent re-render that improve performance.
-* `reactstrap` react bootstrap 4 components.
 * `immutable.js` provides many persistent Immutable data structures.
 * `styled-components` helps you organize CSS in react project.
-* `bootstrap` v4 for quickly building responsive, mobile-first pages.
 * `font-awesome` as the Icons
 * `babel` v7 for es6+ support and load babel-polyfill on-demand.
 * `superagent` for http request.
 
 ## Best Developer Expreience
 
-I've integrated some packages and tools that can reduce webpack initial/rebuild time, hot-reload both on client and server side, and help you debugging application.
-
 * `webpack` v3 for both development and production bundles.
 * `webpack-DLL-plugin`, `cache-loader`, `happypack` for faster rebuild time
 * Hot-reload both client and server-side.
-* State history, playback, enable Time travel with `redux-devtools` (you can also use browser extension).
+* State history, playback, enable Time travel with `redux-devtools` (you can also use redux-devtools-extension).
 * `webpack-bundle-analyzer` to review webpack output files with an interactive zoomable treemap.
 * `Prettier` and `ESLint` keep code style consistency, it will performing code formatting when commit.
 
@@ -57,9 +49,8 @@ You can also install [react-devtools](https://github.com/facebook/react-devtools
 
 ## Production Ready
 
-* Split vendor libraries from app code.
 * Route and component level code splitting.
-* Async inject reducer and saga.
+* Async inject reducer and saga that are on the page.
 * Offline support via service-worker.
 * Long-term browser caching support.
 
@@ -83,7 +74,7 @@ Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#pr
 
 You can write `css`, `less` and `scss`, but I recommend you to use [styled-components](https://github.com/styled-components/styled-components) to write your style, it can only ship styles that are on the page so it can effectively reduce the bundle size of css file.
 
-## Getting Started
+## Let's Getting Started
 
 First, install the node modules
 
@@ -136,48 +127,50 @@ Run your server with production build result.
 
 ## Folder Structure
 
-...
+`src`: Your app code.
 
-## How To Create A Route
+`src/containers`: Routing components such as `Login`, `Home` pages...
 
-...
+`src/copomnents`: Shared specific styling components such as Button, Form...
+
+`src/client`: client-side entry point
+
+`src/server`: server-side entry point
+
+`config`: Settings for project build.
+
+`scripts`: CLI commands.
 
 ## Server-Side Rendering Data Flow
 
-The data flow from server to client when received a http request, for more details you can see the code from `Line 45` to `Line 11` in `src/server/index.js`.
+The data flow from server to client when received a http request, for more details you can see the code in `src/server/server.js`.
 
-1. Runs matching of routes in react-router for server (`Line 68`).
-2. Extract all of the static preLoad methods from within components (`Line 69` to ` Line 71`).
-3. Makes async data fetching request (`Line 73`).
-4. Renders Route component to string (from `Line 78` to `Line 96`).
-5. Get `styled-components` style tags that are on page (`Line 97`).
-6. Get `react-loadable` chunks that are on page (`Line 98`).
-7. Generate HTML string (with Meta, Script, Style tags) and send to client (from `Line 99` to `Line 109`).
+1. Runs matching of routes in react-router for server.
+2. Extract all of the static preLoad methods from within components.
+3. Makes async data fetching request.
+4. Renders Route component to string.
+5. Get `styled-components` style tags that are on page.
+6. Get `react-loadable` chunks that are on page.
+7. Generate HTML string (with Meta, Script, Style tags) and send to client.
 8. Client-side receives html file with preload state from server.
 9. Client-side initializes redux store with given state and render page.
 
-## How To Remove Bootstrap, Font-Awesome
-
-If you don't want to use `bootstrap` and `font-awesome`, you can easily to remove them.
-
-### Bootstrap
-
-1. Remove `config/bootstrap.config.js` file.<br>
-2. Remove `Line 20` and `Line 163` in `config/webpack.config.js`.
-3. Remove used `reactstrap` components in containers and components folder.
-
-### Font-awesome
+## How To Remove Font-Awesome
 
 1. Remove `config/font-awesome.config.js` and `config/font-awesome.config.less`.
 2. Remove `Line 167` in `config/webpack.config.js`.
 3. If you don't use other font icon, you can remove `woff`, `woff2`, `ttf`, `eot` loaders (in webpack.config.js `Line 91`).
 
+## How To Add Bootstrap
+
+1. Set `process.env.SHOULD_USE_BOOTSTRAP` is `true` in `config/webpack/index.js`.
+2. Now webpack will load bootstrap css and js.
+3. You can install `reactstrap`, its a bootstrap 4 components library for React.
+
 ## Road map
 
 * Write README
-* Write examples
 * Write unit test for react components, reducers and sagas
-* preact on production
 * Deploy a demo site
 * CLI cmd to create page
 

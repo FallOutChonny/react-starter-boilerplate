@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
+import Button from '../Button';
 
 export default class extends React.PureComponent {
   static displayName = 'FormBody';
@@ -51,35 +51,35 @@ export default class extends React.PureComponent {
     } = this.props;
 
     return (
-      <Form onSubmit={onSubmit}>
-        {error && <Alert color="danger">{error}</Alert>}
-        <FormGroup>
-          <Label for="email" className="w-100">
+      <form onSubmit={onSubmit}>
+        {error && <div className="alert alert-danger">{error}</div>}
+        <div className="form-group">
+          <label htmlFor="email">
             E-Mail Address
-          </Label>
-          <Input
-            type="email"
-            name="email"
-            value={username || ''}
-            onChange={this.onChangeUsername}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password" className="w-100">
+            <input
+              type="email"
+              name="email"
+              value={username || ''}
+              onChange={this.onChangeUsername}
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">
             Password
-          </Label>
-          <Input
-            type="password"
-            name="password"
-            value={password || ''}
-            onChange={this.onChangePassword}
-          />
-        </FormGroup>
-        <FormGroup className="no-margin">
+            <input
+              type="password"
+              name="password"
+              value={password || ''}
+              onChange={this.onChangePassword}
+            />
+          </label>
+        </div>
+        <div className="form-group ">
           <Button color="primary" block>
             {name} {loading && <i className="fa fa-spin fa-circle-o-notch" />}
           </Button>
-        </FormGroup>
+        </div>
         {name === 'Login' && (
           <div className="margin-top20 text-center">
             Dont have an account?{' '}
@@ -88,7 +88,7 @@ export default class extends React.PureComponent {
             </Button>
           </div>
         )}
-      </Form>
+      </form>
     );
   }
 }

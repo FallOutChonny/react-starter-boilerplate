@@ -19,8 +19,8 @@ const paths = require('../paths');
 
 const pkg = require(paths.appPackageJson);
 
-module.exports = (target = 'web', webpackConfig, args) => {
-  const { isDebug, isAnalyze } = args;
+module.exports = (target = 'web', webpackConfig, options) => {
+  const { isDebug, isAnalyze, useBS } = options;
   const isServer = target === 'node';
   const isClient = target === 'web';
 
@@ -32,7 +32,6 @@ module.exports = (target = 'web', webpackConfig, args) => {
   const envs = Object.assign({}, env.stringified, {
     __DEV__: isDebug,
     __DLLS__: isDebug,
-    __DEVTOOLS__: isDebug,
   });
 
   const config = { ...webpackConfig, target };
@@ -99,7 +98,7 @@ module.exports = (target = 'web', webpackConfig, args) => {
     config.entry = {
       vendor: [
         ...(isDebug ? [] : pkg.appVendors),
-        bootstrapConfig,
+        ...(useBS ? [bootstrapConfig] : []),
         'font-awesome-webpack!./config/webpack/font-awesome.config.js',
       ],
       main: [

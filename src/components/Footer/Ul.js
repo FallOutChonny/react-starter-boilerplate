@@ -18,7 +18,7 @@ export default styled.ul`
   }
 
   li a:hover {
-    color: ${props => props.theme.brandPrimary};
+    color: ${props => props.theme.primary};
   }
 }
 `;

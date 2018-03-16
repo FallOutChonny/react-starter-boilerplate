@@ -1,29 +1,25 @@
 import React from 'react';
-import { Container } from 'reactstrap';
 import { hot } from 'react-hot-loader';
-import Hero from './Hero';
-import PageTitle from './PageTitle';
-import SubTitle from './SubTitle';
-import GithubButton from './GithubButton';
+import Intro from './Intro';
 import Features from './Features';
-import Line from './Line';
+import P from './P';
 
 function Home() {
-  return (
-    <div>
-      <Hero>
-        <PageTitle>React starter boilerplate</PageTitle>
-        <SubTitle>
-          A Starter Kit for Universal React App, Your website is ready.
-        </SubTitle>
-        <GithubButton />
-      </Hero>
-      <Container>
-        <Line title="Features" />
-        <Features />
-      </Container>
-    </div>
-  );
+  return [
+    <Intro>
+      <h1>React starter boilerplate</h1>
+      <P>
+        A starter kit for universal react app, this project is extends from
+        ejected create-react-app, that has rich features and focus on
+        performance: SEO-Ready, Production-Ready, SSR, Hot-Reload, CSS-in-JS,
+        Code Splitting, Long-term Caching and more...
+        <a href="https://github.com/FallOutChonny/react-starter-boilerplate">
+          Check out on Github
+        </a>
+      </P>
+    </Intro>,
+    <Features />,
+  ];
 }
 
 export default hot(module)(Home);

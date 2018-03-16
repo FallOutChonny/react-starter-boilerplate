@@ -1,24 +1,21 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import {
-  Collapse,
-  Container,
-  Nav,
-  NavItem,
-  NavLink,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  Button,
-} from 'reactstrap';
-import RRNavLink from 'react-router-dom/NavLink';
 import { logout } from 'containers/App/reducer';
 import { makeGetLoggedIn } from 'containers/App/selectors';
+import Navbar from './Navbar';
+import NavbarBrand from './NavbarBrand';
 import Image from './Image';
 import Span from './Span';
 import logo from './logo.png';
+import Link from '../Link';
+import Button from '../Button';
+
+const styles = {
+  marginRight10: { marginRight: '10px' },
+};
 
 @connect(
   createStructuredSelector({
@@ -38,61 +35,68 @@ class Header extends React.PureComponent {
     loggedIn: '',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { isOpen: false };
-    this.toggle = () => this.setState(state => ({ isOpen: !state.isOpen }));
-  }
-
   onClickLogout = evt => {
     evt.preventDefault();
     this.props.logout();
   };
 
+  onClickLogin = evt => {
+    evt.preventDefault();
+    this.props.push('/login');
+  };
+
+  onClickRegister = evt => {
+    evt.preventDefault();
+    this.props.push('/register');
+  };
+
   render() {
+    const { loggedIn } = this.props;
     return (
-      <Navbar color="dark" dark expand="md">
-        <Container>
-          <NavbarBrand to="/" tag={RRNavLink}>
-            <Image
-              src={logo}
-              alt="Start React"
-              title="React Starter Boilerplate"
-            />
-            React Starter
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/about">
-                  <Span>About</Span>
-                </NavLink>
-              </NavItem>
-              {this.props.loggedIn && (
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/news">
-                    <Span>News</Span>
-                  </NavLink>
-                </NavItem>
-              )}
-              {!this.props.loggedIn && (
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/login">
-                    <Span>Login</Span>
-                  </NavLink>
-                </NavItem>
-              )}
-              {this.props.loggedIn && (
-                <NavItem>
-                  <Button color="primary" outline onClick={this.onClickLogout}>
-                    LOGOUT
-                  </Button>
-                </NavItem>
-              )}
-            </Nav>
-          </Collapse>
-        </Container>
+      <Navbar>
+        <NavbarBrand href="/">
+          <Image
+            src={logo}
+            alt="Start React"
+            title="React Starter Boilerplate"
+          />
+          React Starter
+        </NavbarBrand>
+        {loggedIn && (
+          <div>
+            <Link to="login" style={styles.marginRight10}>
+              Users
+            </Link>
+            <Button
+              size="sm"
+              outline
+              onClick={this.onClickLogout}
+              style={styles.marginRight10}
+            >
+              Logout
+            </Button>
+          </div>
+        )}
+        {!loggedIn && (
+          <div>
+            <Button
+              size="sm"
+              outline
+              onClick={this.onClickRegister}
+              style={styles.marginRight10}
+            >
+              Register
+            </Button>
+            <Button
+              size="sm"
+              outline
+              onClick={this.onClickLogin}
+              style={styles.marginRight10}
+            >
+              Login
+            </Button>
+          </div>
+        )}
       </Navbar>
     );
   }

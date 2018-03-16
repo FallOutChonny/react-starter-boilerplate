@@ -1,6 +1,5 @@
 import React from 'react';
-import { Col, CardBody, CardTitle, CardText, Row } from 'reactstrap';
-import Card from './Card';
+import P from './P';
 
 const cards = [
   {
@@ -8,7 +7,7 @@ const cards = [
     icon: 'fa fa-rocket',
     title: 'Production Ready',
     text:
-      'Split vendor libraries to support long-term caching; route and component level code splitting; async load reducer and saga that are on the page to reduce bundle size.',
+      'Split vendor libraries to support for Long-Term Caching; route and component level code splitting; async load reducer and saga that are on the page to reduce bundle size.',
   },
   {
     id: 2,
@@ -61,33 +60,19 @@ const cards = [
   },
 ];
 
-const cardStyles = {
-  mb25: { marginBottom: '25px' },
-  cardHeight: { minHeight: '220px' },
-};
-
 export default function Features() {
   return (
-    <Row>
-      {cards.map(x => (
-        <Col
-          md={4}
-          sm={6}
-          xs={12}
-          lg={3}
-          key={`feature-card-${x.id}`}
-          style={cardStyles.mb25}
-        >
-          <Card>
-            <CardBody>
-              <CardTitle>
-                <i className={x.icon} /> {x.title}
-              </CardTitle>
-              <CardText>{x.text}</CardText>
-            </CardBody>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+    <div>
+      <h2>Features</h2>
+      <ul>
+        {cards.map(x => (
+          <li key={`feature-id-${x.id}`}>
+            <P>
+              <i className={x.icon} /> <strong>{x.title}:</strong> {x.text}
+            </P>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

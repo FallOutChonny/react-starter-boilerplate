@@ -9,8 +9,17 @@ const {
 } = require('./createCompiler');
 
 const isDebug = process.env.NODE_ENV === 'development';
+const useBS =
+  process.env.SHOULD_USE_BOOTSTRAP &&
+  process.env.SHOULD_USE_BOOTSTRAP !== 'false';
 const isAnalyze =
   process.env.BUNDLE_ANALYZE && process.env.BUNDLE_ANALYZE !== 'false';
+
+const options = {
+  isDebug,
+  useBS,
+  isAnalyze,
+};
 
 module.exports = {
   config: dllConfig,
@@ -18,5 +27,5 @@ module.exports = {
   createCompiler,
   createCompilationPromise,
   createDevServerConfig,
-  createConfig: target => createConfig(target, config, { isDebug, isAnalyze }),
+  createConfig: target => createConfig(target, config, options),
 };

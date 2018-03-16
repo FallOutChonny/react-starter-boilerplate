@@ -3,22 +3,27 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader';
 import renderRoutes from 'react-router-config/renderRoutes';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import ErrorBoundary from './ErrorBoundary';
 import { loadAuthIfNeed } from './saga';
 import theme from './theme';
 
+const Wrapper = styled.div`
+  padding-top: 90px;
+`;
+
 class App extends React.PureComponent {
   static propTypes = {
     route: PropTypes.shape({ routes: PropTypes.array }).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   };
 
   static preLoad = () => [[loadAuthIfNeed]];
 
   render() {
-    const { route } = this.props;
+    const { route, history } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <ErrorBoundary>
@@ -37,8 +42,8 @@ class App extends React.PureComponent {
                 content="A starter kit for universal react app"
               />
             </Helmet>
-            <Header />
-            {renderRoutes(route.routes)}
+            <Header push={history.push} />
+            <Wrapper>{renderRoutes(route.routes)}</Wrapper>
             <Footer />
           </div>
         </ErrorBoundary>

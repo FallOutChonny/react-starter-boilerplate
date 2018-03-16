@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Col, Row } from 'reactstrap';
 import HR from './HR';
 import Ul from './Ul';
+import P from './P';
 
 const links = [
   {
@@ -30,27 +30,19 @@ export default function Footer() {
   return (
     <footer>
       <HR />
-      <Container>
-        <Row>
-          <Col lg={{ size: 8, offset: 2 }} md={{ size: 10, offset: 1 }}>
-            <Ul>
-              {links.map(x => (
-                <li key={`footer-link-${x.id}`}>
-                  <a href={x.url}>
-                    <span className="fa-stack fa-lg">
-                      <i className="fa fa-circle fa-stack-2x" />
-                      <i className={`fa fa-${x.name} fa-stack-1x fa-inverse`} />
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </Ul>
-            <p className="copyright text-muted text-center">
-              Copyright © Your Website
-            </p>
-          </Col>
-        </Row>
-      </Container>
+      <Ul>
+        {links.map(x => (
+          <li key={`footer-link-${x.id}`}>
+            <a href={x.url}>
+              <span className="fa-stack fa-lg">
+                <i className="fa fa-circle fa-stack-2x" />
+                <i className={`fa fa-${x.name} fa-stack-1x fa-inverse`} />
+              </span>
+            </a>
+          </li>
+        ))}
+      </Ul>
+      <P>Copyright © Your Website</P>
     </footer>
   );
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-starter-boilerplate",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "A starter kit for universal react app",
   "author": "Chonny Chu <mama.whowho@gmail.com>",
   "keywords": [
@@ -104,10 +104,6 @@
       [
         "transform-imports",
         {
-          "reactstrap": {
-            "transform": "reactstrap/lib/${member}",
-            "preventFullImport": true
-          },
           "react-router-dom": {
             "transform": "react-router-dom/${member}",
             "preventFullImport": true
@@ -207,7 +203,6 @@
       "__DEV__": true,
       "__CLIENT__": true,
       "__SERVER__": true,
-      "__DEVTOOLS__": true,
       "__DLLS__": true,
       "__DISABLE_SSR__": true
     }
@@ -227,7 +222,6 @@
       "react-router-config",
       "react-router-dom",
       "react-router-redux",
-      "reactstrap",
       "redux",
       "redux-devtools",
       "redux-devtools-dock-monitor",
@@ -275,7 +269,6 @@
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
-    "reactstrap": "next",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.16.0",
@@ -342,7 +335,6 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "prettier": "^1.7.4",
-    "promise": "8.0.1",
     "raf": "^3.4.0",
     "react-dev-utils": "4.1.0",
     "react-error-overlay": "2.0.2",
