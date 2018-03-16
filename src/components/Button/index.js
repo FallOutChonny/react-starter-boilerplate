@@ -1,4 +1,4 @@
-/* eslint-disable no-confusing-arrow, no-nested-ternary */
+/* eslint-disable no-confusing-arrow, no-nested-ternary, indent */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
