@@ -10,8 +10,8 @@ import NavbarBrand from './NavbarBrand';
 import Image from './Image';
 import Span from './Span';
 import logo from './logo.png';
-import Link from '../Link';
-import Button from '../Button';
+import Link from 'components/Link';
+import Button from 'components/Button';
 
 const styles = {
   marginRight10: { marginRight: '10px' },

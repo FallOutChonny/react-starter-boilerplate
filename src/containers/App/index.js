@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
+import Helmet, { HelmetProvider } from 'react-helmet-async';
 import { hot } from 'react-hot-loader';
 import renderRoutes from 'react-router-config/renderRoutes';
 import styled, { ThemeProvider } from 'styled-components';
@@ -25,9 +25,9 @@ class App extends React.PureComponent {
   render() {
     const { route, history } = this.props;
     return (
-      <ThemeProvider theme={theme}>
-        <ErrorBoundary>
-          <div>
+      <HelmetProvider>
+        <ThemeProvider theme={theme}>
+          <ErrorBoundary>
             <Helmet
               titleTemplate="%s - React Starter Boilerplate"
               defaultTitle="React Starter Boilerplate"
@@ -45,9 +45,9 @@ class App extends React.PureComponent {
             <Header push={history.push} />
             <Wrapper>{renderRoutes(route.routes)}</Wrapper>
             <Footer />
-          </div>
-        </ErrorBoundary>
-      </ThemeProvider>
+          </ErrorBoundary>
+        </ThemeProvider>
+      </HelmetProvider>
     );
   }
 }

@@ -12,7 +12,7 @@ When you start a new react project, you need to do a lot of settings:
 2. `webpack` config for development and production.
 3. Enable Hot-reload.
 4. Configure `babel`, `eslint`, `jest` and more...
-5. If project become larger, you need to setup some plugins such as `happypack`, `webpack-dll-plugin` to reduce webpack build time.
+5. If project gets bigger, you need to setup some plugins such as `happypack`, `webpack-dll-plugin` to reduce webpack build time.
 
 And once app is online, you have to optimize the performance for production.
 
@@ -20,7 +20,7 @@ All of the settings are very complicated, and if you want to go server-side rend
 
 So I created this project and covers all the above settings, let you can focus on writing components, handling data flow and business logic.
 
-## Features
+## Uses
 
 * `react` as the view.
 * `react-router` v4 as the router.
@@ -34,45 +34,42 @@ So I created this project and covers all the above settings, let you can focus o
 * `styled-components` helps you organize CSS in react project.
 * `font-awesome` as the Icons
 * `babel` v7 for es6+ support and load babel-polyfill on-demand.
-* `superagent` for http request.
+* `isomorphic-fetch` for http request.
 
-## Best Developer Expreience
+## Features
+
+### Best Developer Expreience
 
 * `webpack` v3 for both development and production bundles.
-* `webpack-DLL-plugin`, `cache-loader`, `happypack` for faster rebuild time
-* Hot-reload both client and server-side.
-* State history, playback, enable Time travel with `redux-devtools` (you can also use redux-devtools-extension).
+* `webpack-DLL-plugin`, `cache-loader`, `happypack` for faster rebuild time.
+* `react-hot-loader` enable hot-reload both client and server-side.
+* `redux-devtools` for state history, playback, enable Time travel (you can also use redux-devtools-extension instead).
 * `webpack-bundle-analyzer` to review webpack output files with an interactive zoomable treemap.
-* `Prettier` and `ESLint` keep code style consistency, it will performing code formatting when commit.
+* `ESLint` maintain your code quality with ease.
+* `Prettier` keep code style consistency, it will performing code formatting when commit.
 
 You can also install [react-devtools](https://github.com/facebook/react-devtools), this is a browser extension made by facebook.
 
-## Production Ready
+### Production Ready
 
 * Route and component level code splitting.
 * Async inject reducer and saga that are on the page.
 * Offline support via service-worker.
 * Long-term browser caching support.
+* 🔥 Streaming Server-sdie rendering with  `renderToNodeStream` introduced in `react v16`
+* Server-side cache To speed up SSR.
 
-## SEO Friendly
+### SEO Friendly
 
-This project is using Server-side rendering, so web content can be crawlable, and use `react-helmet` to inject meta tags into html head dynamically from within components, so social medias like Google Plus and Facebook can know your website's metadata.
+This is a SSR (Server-side Rendering) project, so web content can be crawlable, and we use `react-helmet` to inject meta tags into html head dynamically from within components, so social medias like Google Plus and Facebook can know your website's metadata.
 
-## Supported Language Features
+### Supported Language Features
 
-This project supports [ES6](https://github.com/lukehoban/es6features) syntax features and it also supports:
+This project supports all of the [ES6](https://github.com/lukehoban/es6features) and [ES7](https://github.com/ldfaiztt/es7-features) syntax features.
 
-* Async/await.
-* Dynamic import()
-* Static Properties.
-* Class Decorator.
-* JSX and Flow syntax.
+### Supported Style language
 
-Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-).
-
-## Supported Style language
-
-You can write `css`, `less` and `scss`, but I recommend you to use [styled-components](https://github.com/styled-components/styled-components) to write your style, it can only ship styles that are on the page so it can effectively reduce the bundle size of css file.
+You can write `css`, `less` and `scss`, but I recommend you to use [styled-components](https://github.com/styled-components/styled-components).
 
 ## Let's Getting Started
 
@@ -164,15 +161,17 @@ The data flow from server to client when received a http request, for more detai
 ## How To Add Bootstrap
 
 1. Set `process.env.SHOULD_USE_BOOTSTRAP` is `true` in `config/webpack/index.js`.
-2. Now webpack will load bootstrap css and js.
-3. You can install `reactstrap`, its a bootstrap 4 components library for React.
+2. Bootstrap css and js will load into webpack bundle.
+3. You can install `reactstrap`, its a bootstrap 4 components for React.
 
 ## Road map
 
-* Write README
+* README
+* Call API demo
+* Authentication Route
 * Write unit test for react components, reducers and sagas
 * Deploy a demo site
-* CLI cmd to create page
+* Use CLI cmd to create page
 
 ## License
 
