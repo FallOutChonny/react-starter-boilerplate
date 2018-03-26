@@ -1,3 +1,18 @@
+<div align="center">
+  <!-- Dependency Status -->
+  <a href="https://david-dm.org/falloutchonny/react-starter-boilerplate" title="dependencies status">
+    <img src="https://david-dm.org/falloutchonny/react-starter-boilerplate/status.svg"/>
+  </a>
+  <!-- devDependency Status -->
+  <a href="https://david-dm.org/falloutchonny/react-starter-boilerplate?type=dev" title="devDependencies status">
+    <img src="https://david-dm.org/falloutchonny/react-starter-boilerplate/dev-status.svg"/></a>
+  <!-- Build Status -->
+  <a href="https://travis-ci.org/FallOutChonny/react-starter-boilerplate">
+    <img src="https://travis-ci.org/FallOutChonny/react-starter-boilerplate.svg?branch=master" alt="Build Status" />
+  </a>
+  <!-- Test Coverage -->
+</div>
+
 # React Starter Boilerplate
 
 A starter kit for universal react app, this project is extends from ejected create-react-app.
