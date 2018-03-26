@@ -4,4 +4,6 @@
  */
 const createHTML = require('../src/server/createHTML').default;
 
-module.exports = () => createHTML({});
+const { html } = createHTML({});
+
+module.exports = () => html;

@@ -4,7 +4,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
+import { renderToNodeStream, renderToString } from 'react-dom/server'; // eslint-disable-line
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import createHistory from 'history/createMemoryHistory';
@@ -13,11 +13,15 @@ import matchRoutes from 'react-router-config/matchRoutes';
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { HelmetProvider } from 'react-helmet-async';
+import { ServerStyleSheet } from 'styled-components';
+import { isDev } from './config';
+import waitAll from './waitAll';
+import ssrCache from './ssrCache';
+import createHTML from './createHTML';
+import createCacheStream from './createCacheStream';
 import cookies from '../utils/cookies';
 import configureStore from '../configureStore';
-import waitAll from './waitAll';
-import createHTML from './createHTML';
 import createRoutes from '../routes';
 
 /* eslint-disable import/no-dynamic-require */
@@ -35,11 +39,25 @@ app.use(
   })
 );
 
+// app.disable('x-powered-by');
 app.use(helmet());
 app.use(favicon(path.join(process.cwd(), '/public/favicon.ico')));
 
-// TODO: renderToNodeStream
-app.use((req, res) => {
+app.use('*', (req, res, next) => {
+  const key = `${req.url}`;
+
+  if (!isDev && ssrCache.has(key)) {
+    // Return the HTML for this path from the cache if it exists
+    res.append('X-Cache', 'HIT');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(ssrCache.get(key));
+    return;
+  }
+  // Otherwise go on and render it
+  next();
+});
+
+app.use('*', (req, res) => {
   cookies.setRawCookies(req.headers.cookie);
 
   const history = createHistory(req.originalUrl);
@@ -53,12 +71,14 @@ app.use((req, res) => {
 
   const runTasks = store.runSaga(waitAll(preLoaders));
   runTasks.done.then(() => {
-    const routerContext = {};
-    const modules = [];
     const sheet = new ServerStyleSheet();
+    const routerContext = {};
+    const helmetContext = {};
+    const modules = [];
+
     const component = (
       <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-        <StyleSheetManager sheet={sheet.instance}>
+        <HelmetProvider context={helmetContext}>
           <Provider store={store}>
             <ConnectedRouter history={history}>
               <StaticRouter location={req.url} context={routerContext}>
@@ -66,27 +86,52 @@ app.use((req, res) => {
               </StaticRouter>
             </ConnectedRouter>
           </Provider>
-        </StyleSheetManager>
+        </HelmetProvider>
       </Loadable.Capture>
     );
 
-    if (routerContext.url) {
-      res.redirect(routerContext.status || 302, routerContext.url);
-    }
+    // const content = renderToString(component); // eslint-disable-line
 
-    const content = ReactDOM.renderToString(component);
+    // if (routerContext.url) {
+    //   res.redirect(routerContext.status || 302, routerContext.url);
+    // }
+
     const bundles = getBundles(stats, modules);
-    const styles = sheet.getStyleTags();
+    // const styles = sheet.getStyleTags();
+    const jsx = sheet.collectStyles(component);
     const preloadState = store.getState();
-    const html = createHTML({
-      content,
-      styles,
-      bundles,
+
+    const { header, footer } = createHTML({
+      // content,
       assets,
+      // styles,
       preloadState,
+      bundles,
+      helmetContext,
     });
 
-    res.status(routerContext.status || 200).send(html);
+    // res.status(routerContext.status || 200).send(html);
+
+    let cacheStream;
+    // Don't use cache in development environment
+    if (!isDev) {
+      // Create the cache stream and pipe it into the response
+      cacheStream = createCacheStream(req.url);
+      cacheStream.pipe(res);
+    } else {
+      cacheStream = res;
+    }
+
+    cacheStream.setHeader('Content-Type', 'text/html; charset=utf-8');
+    cacheStream.write(header);
+    const renderStream = sheet.interleaveWithNodeStream(
+      renderToNodeStream(jsx)
+    );
+    renderStream.pipe(cacheStream, { end: false });
+    renderStream.on('end', () => {
+      // Once it's done rendering write the rest of the HTML
+      cacheStream.end(footer);
+    });
   });
 });
 

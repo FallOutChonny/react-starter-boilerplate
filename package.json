@@ -4,7 +4,6 @@
   "description": "A starter kit for universal react app",
   "author": "Chonny Chu <mama.whowho@gmail.com>",
   "keywords": [
-    "bootstrap 4",
     "code splitting",
     "es6",
     "express",
@@ -221,6 +220,7 @@
       "react-dom",
       "react-hot-loader",
       "react-loadable",
+      "react-helmet-async",
       "react-redux",
       "react-router",
       "react-router-config",
@@ -234,7 +234,7 @@
       "redux-saga",
       "reselect",
       "styled-components",
-      "superagent"
+      "whatwg-fetch"
     ]
   },
   "appVendors": [
@@ -243,6 +243,7 @@
     "react",
     "react-dom",
     "react-loadable",
+    "react-helmet-async",
     "react-redux",
     "react-router-config",
     "react-router-redux",
@@ -250,8 +251,7 @@
     "redux-immutable",
     "redux-saga",
     "reselect",
-    "styled-components",
-    "superagent"
+    "styled-components"
   ],
   "dependencies": {
     "bootstrap": "^4.0.0",
@@ -260,12 +260,13 @@
     "helmet": "^3.9.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
+    "lru-cache": "^4.1.2",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-helmet": "^5.2.0",
+    "react-helmet-async": "0.0.5",
     "react-hot-loader": "^4.0.0",
     "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
@@ -279,8 +280,8 @@
     "reselect": "^3.0.1",
     "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.4.5",
-    "styled-components": "^3.1.6",
-    "superagent": "^3.8.0"
+    "styled-components": "^3.2.3",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.38",
