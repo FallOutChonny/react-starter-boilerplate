@@ -3,15 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { logout } from 'containers/App/reducer';
-import { makeGetLoggedIn } from 'containers/App/selectors';
+import Link from 'components/Link';
+import Button from 'components/Button';
 import Navbar from './Navbar';
 import NavbarBrand from './NavbarBrand';
 import Image from './Image';
 import Span from './Span';
 import logo from './logo.png';
-import Link from 'components/Link';
-import Button from 'components/Button';
+import { logout } from '../reducer';
+import { makeGetLoggedIn } from '../selectors';
 
 const styles = {
   marginRight10: { marginRight: '10px' },

@@ -52,12 +52,15 @@
     "start": "npm run start:prod",
     "start:dev": "node scripts/start.js",
     "start:prod": "node build/server.js",
-    "test": "node scripts/test.js --env=jsdom",
-    "test:coverage": "node scripts/test.js --env=jsdom --coverage"
+    "test": "node scripts/test.js --env=jsdom --coverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "jest": {
     "collectCoverageFrom": ["src/**/*.{js,jsx}"],
-    "setupFiles": ["<rootDir>/config/polyfills.js"],
+    "setupFiles": [
+      "<rootDir>/config/jest/setupTests.js",
+      "<rootDir>/config/polyfills.js"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.js?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
@@ -69,6 +72,7 @@
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
+    "moduleDirectories": ["node_modules", "src"],
     "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
@@ -307,9 +311,11 @@
     "cache-loader": "^1.1.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "2.3.0",
+    "coveralls": "^3.0.0",
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "1.9.0",
