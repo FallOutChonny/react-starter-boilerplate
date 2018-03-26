@@ -5,6 +5,10 @@ node_js:
   - "7"
   - "6"
 
+scripts:
+  - npm run test
+  - npm run build
+
 notifications:
   email:
     - mama.whowho@gmail.com
