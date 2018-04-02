@@ -181,12 +181,12 @@ The data flow from server to client when received a http request, for more detai
 
 ## Road map
 
-* README
-* Call API demo
-* Authentication Route
-* Write unit test for react components, reducers and sagas
-* Deploy a demo site
-* Use CLI cmd to create page
+* Call API demo.
+* Authentication Route.
+* Font-awesome 5 with inline style tags.
+* Deploy a demo site.
+* Modularized.
+* Write unit test for react components, reducers and sagas.
 
 ## License
 
