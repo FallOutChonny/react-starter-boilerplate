@@ -164,7 +164,7 @@ The data flow from server to client when received a http request, for more detai
 5. Get `styled-components` style tags that are on page.
 6. Get `react-loadable` chunks that are on page.
 7. Generate HTML string (with Meta, Script, Style tags) and send to client.
-8. Client-side receives html file with preload state from server.
+8. Client-side receives html file with preload state from server.
 9. Client-side initializes redux store with given state and render page.
 
 ## How To Remove Font-Awesome
@@ -183,8 +183,9 @@ The data flow from server to client when received a http request, for more detai
 
 * Call API demo.
 * Authentication Route.
-* Font-awesome 5 with SSR.
+* Load font-awesome 5 with inline style tag (like styled-components).
 * Deploy a demo site.
+* Rewrite homepage (I'm not good at UI design and I know it's ugly, can anyone give me some suggestions).
 * Modularized.
 * Write unit test for react components, reducers and sagas.
 
