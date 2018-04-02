@@ -183,7 +183,7 @@ The data flow from server to client when received a http request, for more detai
 
 * Call API demo.
 * Authentication Route.
-* Font-awesome 5 with inline style tags.
+* Font-awesome 5 with SSR.
 * Deploy a demo site.
 * Modularized.
 * Write unit test for react components, reducers and sagas.
