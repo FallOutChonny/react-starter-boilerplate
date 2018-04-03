@@ -261,8 +261,6 @@
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "lru-cache": "^4.1.2",
-    "preact": "^8.2.7",
-    "preact-compat": "^3.17.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -279,8 +277,8 @@
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "serialize-javascript": "^1.4.0",
-    "serve-favicon": "^2.4.5",
-    "styled-components": "^3.2.3",
+    "serve-favicon": "^2.5.0",
+    "styled-components": "^3.2.5",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -336,7 +334,6 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "lint-staged": "^6.0.1",
-    "module-alias": "^2.0.3",
     "name-all-modules-plugin": "^1.0.1",
     "node-sass": "^4.5.3",
     "postcss-flexbugs-fixes": "3.2.0",
