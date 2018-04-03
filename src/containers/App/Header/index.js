@@ -64,7 +64,7 @@ class Header extends React.PureComponent {
         </NavbarBrand>
         {loggedIn && (
           <div>
-            <Link to="login" style={styles.marginRight10}>
+            <Link to="/login" style={styles.marginRight10}>
               Users
             </Link>
             <Button
