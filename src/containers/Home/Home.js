@@ -1,7 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import Intro from './Intro';
-import Features from './Features';
 import P from './P';
 
 function Home() {
@@ -19,7 +18,6 @@ function Home() {
           </a>
         </P>
       </Intro>
-      <Features />
     </React.Fragment>
   );
 }
