@@ -5,7 +5,6 @@
  */
 /* eslint-disable indent */
 import serialize from 'serialize-javascript';
-// import Helmet from 'react-helmet';
 import { publicUrl, isDev } from './config';
 
 const nullHelmet = {
@@ -26,9 +25,6 @@ export default function createHTML({
   preloadState = {},
   // React-loadable chunks that are on the request page.
   bundles = [],
-  // Styled-components styles that are on the request page.
-  styles = '',
-  // content = '',
   // React-helmet-async context.
   helmetContext = {},
 }) {
@@ -67,16 +63,11 @@ export default function createHTML({
           ? `<link href="${assets.main.css}" rel="stylesheet" />`
           : ''
       }
-      ${!isDev ? styles : ''}
       ${isDev ? '<style>#app{display:none}</style>' : ''}
     </head>
-    <body ${bodyAttrs}>
-      ${isDev ? styles : ''}
-      <div id="app">
-  `;
+    <body ${bodyAttrs}><div id="app">`;
 
-  const footer = `
-      </div>
+  const footer = `</div>
       ${`<script>window.__INITIAL_STATE__=${initialState};</script>`}
       ${__DLLS__ ? '<script src="/dll/vendor.dll.js"></script>' : ''}
       ${
