@@ -186,6 +186,7 @@ The data flow from server to client when received a http request, for more detai
 * Load font-awesome 5 with inline style tag (like styled-components).
 * Deploy a demo site.
 * Rewrite homepage (I'm not good at UI design and I know it's ugly, can anyone give me some suggestions).
+* Beauty terminal output.
 * Modularized.
 * Write unit test for react components, reducers and sagas.
 
