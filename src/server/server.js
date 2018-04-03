@@ -90,30 +90,28 @@ app.use('*', (req, res) => {
       </Loadable.Capture>
     );
 
-    // const content = renderToString(component); // eslint-disable-line
+    // get helmet and bundles...
+    renderToString(component);
 
-    // if (routerContext.url) {
-    //   res.redirect(routerContext.status || 302, routerContext.url);
-    // }
+    if (routerContext.url) {
+      res.redirect(routerContext.status || 302, routerContext.url);
+    }
 
     const bundles = getBundles(stats, modules);
-    // const styles = sheet.getStyleTags();
     const jsx = sheet.collectStyles(component);
     const preloadState = store.getState();
 
     const { header, footer } = createHTML({
-      // content,
       assets,
-      // styles,
       preloadState,
       bundles,
       helmetContext,
     });
 
-    // res.status(routerContext.status || 200).send(html);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
     let cacheStream;
-    // Don't use cache in development environment
+    // Disable caching in development environment.
     if (!isDev) {
       // Create the cache stream and pipe it into the response
       cacheStream = createCacheStream(req.url);
@@ -122,7 +120,6 @@ app.use('*', (req, res) => {
       cacheStream = res;
     }
 
-    cacheStream.setHeader('Content-Type', 'text/html; charset=utf-8');
     cacheStream.write(header);
     const renderStream = sheet.interleaveWithNodeStream(
       renderToNodeStream(jsx)
