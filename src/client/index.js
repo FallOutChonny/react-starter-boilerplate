@@ -4,7 +4,6 @@ import createHistory from 'history/createBrowserHistory';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
-import { consolidateStreamedStyles } from 'styled-components';
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 import renderRoutes from 'react-router-config/renderRoutes';
 import Loadable from 'react-loadable';
@@ -34,8 +33,6 @@ const rootEl = document.getElementById('app');
     );
 
   await Loadable.preloadReady();
-
-  consolidateStreamedStyles();
 
   renderApp(routes);
 
