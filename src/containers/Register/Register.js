@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { hot } from 'react-hot-loader';
+import Helmet from 'react-helmet-async';
 import RegisterForm from 'components/Form';
 import saga from './saga';
 import { reducer, register } from './reducer';
@@ -33,14 +34,19 @@ class Register extends Component {
   render() {
     const { loading, ...rest } = this.props;
     return (
-      <RegisterForm
-        onChangeForm={this.onChangeForm}
-        onSubmitForm={this.onSubmitForm}
-        formName="Register"
-        formState={this.state.formState}
-        loading={loading}
-        {...rest}
-      />
+      <React.Fragment>
+        <Helmet>
+          <title>Register Page</title>
+        </Helmet>
+        <RegisterForm
+          onChangeForm={this.onChangeForm}
+          onSubmitForm={this.onSubmitForm}
+          formName="Register"
+          formState={this.state.formState}
+          loading={loading}
+          {...rest}
+        />
+      </React.Fragment>
     );
   }
 }

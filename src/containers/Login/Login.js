@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { hot } from 'react-hot-loader';
+import Helmet from 'react-helmet-async';
 import LoginForm from 'components/Form';
 import saga from './saga';
 import { reducer, login, changeForm } from './reducer';
@@ -33,14 +34,19 @@ class Login extends React.PureComponent {
       ...rest
     } = this.props;
     return (
-      <LoginForm
-        formName="Login"
-        formState={formState}
-        onSubmitForm={onSubmitForm}
-        onChangeForm={onChangeForm}
-        loading={loading}
-        {...rest}
-      />
+      <React.Fragment>
+        <Helmet>
+          <title>Login Page</title>
+        </Helmet>
+        <LoginForm
+          formName="Login"
+          formState={formState}
+          onSubmitForm={onSubmitForm}
+          onChangeForm={onChangeForm}
+          loading={loading}
+          {...rest}
+        />
+      </React.Fragment>
     );
   }
 }
