@@ -3,7 +3,7 @@ import { injectGlobal } from 'styled-components';
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   #app {
-    max-width: calc(768px + 32px);
+    max-width: calc(800px + 32px);
     margin: 0 auto;
     display: flex;
     height: 100%;
