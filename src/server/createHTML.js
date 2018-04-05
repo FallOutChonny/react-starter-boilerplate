@@ -7,17 +7,6 @@
 import serialize from 'serialize-javascript';
 import { publicUrl, isDev } from './config';
 
-const nullHelmet = {
-  bodyAttributes: {},
-  htmlAttributes: {},
-  base: [],
-  link: [],
-  meta: [],
-  script: [],
-  style: [],
-  title: '',
-};
-
 export default function createHTML({
   // Webpack bundled assets such as javascript, css.
   assets = {},
@@ -28,8 +17,7 @@ export default function createHTML({
   // React-helmet-async context.
   helmetContext = {},
 }) {
-  let { helmet } = helmetContext;
-  helmet = helmet || nullHelmet;
+  const { helmet } = helmetContext;
   const htmlAttrs = helmet.htmlAttributes.toString();
   const bodyAttrs = helmet.bodyAttributes.toString();
   const initialState = serialize(preloadState);
