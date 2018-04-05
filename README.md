@@ -18,6 +18,8 @@
 
 # React Starter Boilerplate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/FallOutChonny/react-starter-boilerplate.svg)](https://greenkeeper.io/)
+
 A starter kit for universal react app, this project is extends from ejected create-react-app.
 
 [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/falloutchonny/react-starter-boilerplate)
