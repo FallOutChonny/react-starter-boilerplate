@@ -12,7 +12,7 @@ function Home() {
         <meta name="description" content="React Starter Boilerplate homepage" />
       </Helmet>
       <Intro>
-        <h1>React starter boilerplate</h1>
+        <h1>React Starter Boilerplate</h1>
         <P>
           A starter kit for universal react app, this project is extends from
           ejected create-react-app, that has rich features and focus on
