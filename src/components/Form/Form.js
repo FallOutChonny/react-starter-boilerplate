@@ -77,7 +77,7 @@ export default class extends React.PureComponent {
         </div>
         <div className="form-group ">
           <Button color="primary" block>
-            {name} {loading && <i className="fa fa-spin fa-circle-o-notch" />}
+            {name} {loading && <i className="fas fa-spin fa-circle-notch" />}
           </Button>
         </div>
         {name === 'Login' && (

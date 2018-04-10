@@ -35,8 +35,8 @@ export default function Footer() {
           <li key={`footer-link-${x.id}`}>
             <a href={x.url}>
               <span className="fa-stack fa-lg">
-                <i className="fa fa-circle fa-stack-2x" />
-                <i className={`fa fa-${x.name} fa-stack-1x fa-inverse`} />
+                <i className="fas fa-circle fa-stack-2x" />
+                <i className={`fab fa-${x.name} fa-stack-1x fa-inverse`} />
               </span>
             </a>
           </li>
