@@ -10,6 +10,10 @@ import Loadable from 'react-loadable';
 import registerServiceWorker from './registerServiceWorker';
 import createRoutes from '../routes';
 import configureStore from '../configureStore';
+
+// inject font-awesome styles
+import '../utils/font-awesome';
+// inject styled-components styles
 import './globalStyles';
 
 const rootEl = document.getElementById('app');

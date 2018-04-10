@@ -16,6 +16,8 @@ export default function createHTML({
   bundles = [],
   // React-helmet-async context.
   helmetContext = {},
+  // All the styles required for displaying icons at the correct size.
+  faStyles,
 }) {
   const { helmet } = helmetContext;
   const htmlAttrs = helmet.htmlAttributes.toString();
@@ -42,15 +44,11 @@ export default function createHTML({
       />
       <meta name="theme-color" content="#ffffff" />
       ${
-        assets.vendor && assets.vendor.css
-          ? `<link href="${assets.vendor.css}" rel="stylesheet" />`
-          : ''
-      }
-      ${
         assets.main && assets.main.css
           ? `<link href="${assets.main.css}" rel="stylesheet" />`
           : ''
       }
+      ${faStyles ? `<style>${faStyles}</style>` : ''}
       ${isDev ? '<style>#app{display:none}</style>' : ''}
     </head>
     <body ${bodyAttrs}><div id="app">`;

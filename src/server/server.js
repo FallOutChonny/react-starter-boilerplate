@@ -20,6 +20,7 @@ import waitAll from './waitAll';
 import ssrCache from './ssrCache';
 import createHTML from './createHTML';
 import createCacheStream from './createCacheStream';
+import fontawesome from '../utils/font-awesome';
 import cookies from '../utils/cookies';
 import configureStore from '../configureStore';
 import createRoutes from '../routes';
@@ -99,6 +100,7 @@ app.use('*', (req, res) => {
 
     const bundles = getBundles(stats, modules);
     const jsx = sheet.collectStyles(component);
+    const faStyles = fontawesome.dom.css();
     const preloadState = store.getState();
 
     const { header, footer } = createHTML({
@@ -106,6 +108,7 @@ app.use('*', (req, res) => {
       preloadState,
       bundles,
       helmetContext,
+      faStyles,
     });
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
