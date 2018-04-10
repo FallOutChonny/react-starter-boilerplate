@@ -96,11 +96,10 @@ module.exports = (target = 'web', webpackConfig, options) => {
 
   if (isClient) {
     config.entry = {
-      vendor: [
-        ...(isDebug ? [] : pkg.appVendors),
-        ...(useBS ? [bootstrapConfig] : []),
-        'font-awesome-webpack!./config/webpack/font-awesome.config.js',
-      ],
+      // vendor: [
+      //   ...(isDebug ? [] : pkg.appVendors),
+      //   ...(useBS ? [bootstrapConfig] : []),
+      // ],
       main: [
         // We ship a few polyfills by default:
         require.resolve('../polyfills'),
