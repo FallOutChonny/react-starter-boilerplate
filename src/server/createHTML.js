@@ -7,17 +7,6 @@
 import serialize from 'serialize-javascript';
 import { publicUrl, isDev } from './config';
 
-const nullHelmet = {
-  bodyAttributes: {},
-  htmlAttributes: {},
-  base: [],
-  link: [],
-  meta: [],
-  script: [],
-  style: [],
-  title: '',
-};
-
 export default function createHTML({
   // Webpack bundled assets such as javascript, css.
   assets = {},
@@ -27,9 +16,10 @@ export default function createHTML({
   bundles = [],
   // React-helmet-async context.
   helmetContext = {},
+  // All the styles required for displaying icons at the correct size.
+  faStyles,
 }) {
-  let { helmet } = helmetContext;
-  helmet = helmet || nullHelmet;
+  const { helmet } = helmetContext;
   const htmlAttrs = helmet.htmlAttributes.toString();
   const bodyAttrs = helmet.bodyAttributes.toString();
   const initialState = serialize(preloadState);
@@ -54,15 +44,11 @@ export default function createHTML({
       />
       <meta name="theme-color" content="#ffffff" />
       ${
-        assets.vendor && assets.vendor.css
-          ? `<link href="${assets.vendor.css}" rel="stylesheet" />`
-          : ''
-      }
-      ${
         assets.main && assets.main.css
           ? `<link href="${assets.main.css}" rel="stylesheet" />`
           : ''
       }
+      ${faStyles ? `<style>${faStyles}</style>` : ''}
       ${isDev ? '<style>#app{display:none}</style>' : ''}
     </head>
     <body ${bodyAttrs}><div id="app">`;

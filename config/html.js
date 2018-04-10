@@ -4,6 +4,18 @@
  */
 const createHTML = require('../src/server/createHTML').default;
 
-const { html } = createHTML({});
+const helmetContext = {
+  helmet: {
+    htmlAttributes: {},
+    bodyAttributes: {},
+    title: {},
+    base: {},
+    meta: {},
+    link: {},
+    script: {},
+  },
+};
+
+const { html } = createHTML({ helmetContext });
 
 module.exports = () => html;

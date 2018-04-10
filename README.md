@@ -172,17 +172,27 @@ The data flow from server to client when received a http request, for more detai
 8. Client-side receives html file with preload state from server.
 9. Client-side initializes redux store with given state and render page.
 
+## How To Add Font-Awesome Icon
+
+Since font-awesome v5 that give us a lot of benefits, we can inline the CSS directly into the page and load icon on-demand, you can add the icon you want.
+
+1. In the `src/utils/font-awesome.js`.
+2. Import icon, ex: `import faUser from '@fortawesome/fontawesome-free-solid/faUser'`.
+3. Add icon into library. `fontawesome.library.add(faUser)`.
+
 ## How To Remove Font-Awesome
 
-1. Remove `config/font-awesome.config.js` and `config/font-awesome.config.less`.
-2. Remove `Line 167` in `config/webpack.config.js`.
-3. If you don't use other font icon, you can remove `woff`, `woff2`, `ttf`, `eot` loaders (in webpack.config.js `Line 91`).
+1. Remove `Line 14` in `src/client/index.js`.
+2. Remove `src/utils/font-awesome.js`.
+3. Remove all of the icons that used in React components.
+4. Remove `@fortawesome/fontawesome` `@fortawesome/fontawesome-free-brands` `@fortawesome/fontawesome-free-solid` in the `package.json` dependencies.
 
 ## How To Add Bootstrap
 
-1. Set `process.env.SHOULD_USE_BOOTSTRAP` is `true` in `config/webpack/index.js`.
-2. Bootstrap css and js will load into webpack bundle.
-3. You can install `reactstrap`, its a bootstrap 4 components for React.
+1. `npm install bootstrap@v4.0.0 bootstrap-loader`.
+2. Set `process.env.SHOULD_USE_BOOTSTRAP=true` in `config/webpack/index.js`.
+3. Bootstrap css and js will load into webpack bundle, now you can feel free to it.
+4. You can also install `reactstrap`, its a bootstrap 4 components built for `React`.
 
 ## Road map
 
