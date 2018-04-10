@@ -5,7 +5,7 @@ process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 // Support for absolute import.
 process.env.NODE_PATH = 'src';
-process.env.BUNDLE_ANALYZE = true;
+process.env.BUNDLE_ANALYZE = false;
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
