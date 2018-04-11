@@ -10,8 +10,8 @@
   <a href="https://travis-ci.org/FallOutChonny/react-starter-boilerplate">
     <img src="https://travis-ci.org/FallOutChonny/react-starter-boilerplate.svg?branch=master" alt="Build Status" />
   </a>
-  <a href="https://www.npmjs.com/package/prettier">
-    <img alt="npm version" src="https://img.shields.io/npm/v/prettier.svg?style=flat-square">
+  <a href="#badge">
+    <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
   </a>
   <!-- Test Coverage -->
 </div>
