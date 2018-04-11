@@ -22,6 +22,11 @@ A starter kit for universal react app, this project is extends from ejected crea
 
 [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/falloutchonny/react-starter-boilerplate)
 
+## Customization
+
+* [feature/without-immutablejs](https://github.com/FallOutChonny/react-starter-boilerplate/tree/feature/without-immutablejs)
+    — rewrite redux code without immutablejs library
+
 ## Motivation
 
 The motivation is simple, Best Development Experience and App performance.
