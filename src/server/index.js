@@ -3,6 +3,10 @@ import Loadable from 'react-loadable';
 import app from './server';
 import { port, host, isDev } from './config';
 
+process.on('unhandledRejection', err => {
+  throw err;
+});
+
 const server = new http.Server(app);
 let currentApp = app;
 

@@ -1,5 +1,9 @@
 'use strict';
 
+// TODO:
+
+process.traceDeprecation = true;
+
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.NODE_ENV = 'development';
 // Support for absolute import.
@@ -24,6 +28,8 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const devServer = require('webpack-dev-server');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
+const clearConsole = require('react-dev-utils/clearConsole');
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const {
   choosePort,
   prepareProxy,
@@ -35,9 +41,7 @@ const buildDLL = require('./buildDLL');
 const {
   compile,
   createConfig,
-  createCompiler,
   createDevServerConfig,
-  createCompilationPromise,
 } = require('../config/webpack');
 
 const buildDLLIfNeed = !fs.existsSync(paths.appDllManifest);
@@ -61,10 +65,98 @@ if (process.env.HOST) {
     )
   );
   console.log(
-    'If this was unintentional, check that you haven\'t mistakenly set it in your shell.'
+    "If this was unintentional, check that you haven't mistakenly set it in your shell."
   );
   console.log(`Learn more here: ${chalk.yellow('http://bit.ly/2mwWSwH')}`);
   console.log();
+}
+
+
+// Create webpack compiler that will print instructions after build
+function createCompiler(config, appName, urls) {
+  const compiler = compile(config);
+
+  let isFirstCompile = true;
+
+  compiler.hooks.done.tap(config.target, stats => {
+    if (isFirstCompile) {
+      clearConsole();
+    }
+
+    const messages = formatWebpackMessages(stats.toJson({}, true));
+    const isSuccessful = !messages.errors.length && !messages.warnings.length;
+
+    if (isSuccessful && isFirstCompile) {
+      console.log(chalk.green('Compiled successfully!'));
+      console.log();
+      console.log(`You can now view ${chalk.bold(appName)} in the browser.`);
+      console.log();
+
+      if (urls.lanUrlForTerminal) {
+        console.log(
+          `  ${chalk.bold('Local:')}            ${urls.localUrlForTerminal}`
+        );
+        console.log(
+          `  ${chalk.bold('On Your Network:')}  ${urls.lanUrlForTerminal}`
+        );
+      } else {
+        console.log(`  ${urls.localUrlForTerminal}`);
+      }
+
+      console.log();
+      console.log('Note that the development build is not optimized.');
+      console.log(
+        'To create a production build, use ' +
+          `${chalk.cyan(`${useYarn ? 'yarn' : 'npm run'} build`)}.`
+      );
+      console.log();
+    }
+    isFirstCompile = false;
+
+    if (messages.errors.length) {
+      if (messages.errors.length > 1) {
+        messages.errors.length = 1;
+      }
+      console.log(chalk.red('Failed to compile.\n'));
+      console.log(messages.errors.join('\n\n'));
+    }
+
+    if (messages.warnings.length) {
+      console.log(chalk.yellow('Compiled with warnings.\n'));
+      console.log(messages.warnings.join('\n\n'));
+
+      console.log(
+        '\nSearch for the ' +
+          chalk.underline(chalk.yellow('keywords')) +
+          ' to learn more about each warning.'
+      );
+      console.log(
+        'To ignore, add ' +
+          chalk.cyan('// eslint-disable-next-line') +
+          ' to the line before.\n'
+      );
+    }
+  });
+
+  return compiler;
+}
+
+// Create a compilation Promise that can wait until webpack bundles are ready
+function createCompilationPromise(compiler) {
+  return new Promise((resolve, reject) => {
+    compiler.hooks.done.tap('done', stats => {
+      if (stats.hasErrors()) {
+        reject(
+          new Error(
+            formatWebpackMessages(stats.toJson({}, true)).errors.join('\n\n')
+          )
+        );
+        console.log(chalk.red('Failed to compile.\n'));
+      }
+
+      resolve(stats);
+    });
+  });
 }
 
 // We attempt to use the default port but if it is busy, we offer the user to
@@ -111,7 +203,10 @@ choosePort(HOST, DEFAULT_PORT)
     clientConfig.devServer = devServerConfig;
 
     const clientCompiler = compile(clientConfig);
-    const clientDevServer = new devServer(clientCompiler, clientConfig.devServer);
+    const clientDevServer = new devServer(
+      clientCompiler,
+      clientConfig.devServer
+    );
 
     clientDevServer.listen(port, err => {
       if (err) {
@@ -136,7 +231,7 @@ choosePort(HOST, DEFAULT_PORT)
       stats => {}
     );
 
-    ['SIGINT', 'SIGTERM'].forEach((sig) => {
+    ['SIGINT', 'SIGTERM'].forEach(sig => {
       process.on(sig, () => {
         clientDevServer.close();
         process.exit();
@@ -145,7 +240,7 @@ choosePort(HOST, DEFAULT_PORT)
   })
   .catch(err => {
     if (err && err.message) {
-      console.log(err.message);
+      console.log(err);
     }
     process.exit(1);
   });

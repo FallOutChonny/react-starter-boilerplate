@@ -2,11 +2,7 @@ const config = require('./webpack.config');
 const dllConfig = require('./webpack.dll.config');
 const createConfig = require('./createConfig');
 const createDevServerConfig = require('./webpackDevServer.config');
-const {
-  compile,
-  createCompiler,
-  createCompilationPromise,
-} = require('./createCompiler');
+const compile = require('./createCompiler');
 
 const isDebug = process.env.NODE_ENV === 'development';
 const useBS =
@@ -24,8 +20,6 @@ const options = {
 module.exports = {
   config: dllConfig,
   compile,
-  createCompiler,
-  createCompilationPromise,
   createDevServerConfig,
   createConfig: target => createConfig(target, config, options),
 };
