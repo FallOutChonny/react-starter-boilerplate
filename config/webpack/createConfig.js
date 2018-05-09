@@ -1,3 +1,4 @@
+/* eslint-disable indent, import/no-dynamic-require */
 const fs = require('fs-extra');
 const path = require('path');
 const webpack = require('webpack');
@@ -5,22 +6,18 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const NameAllModulesPlugin = require('name-all-modules-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const StartServerPlugin = require('start-server-webpack-plugin');
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+// const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+const WatchMissingNodeModulesPlugin = require('./WatchMissingNodeModulePlugin');
 const nodeExternals = require('webpack-node-externals');
-const bootstrapConfig = require('./bootstrap.config.js');
 const getClientEnvironment = require('../env');
 const paths = require('../paths');
 
-const pkg = require(paths.appPackageJson);
-
 module.exports = (target = 'web', webpackConfig, options) => {
-  const { isDebug, isAnalyze, useBS } = options;
+  const { isDebug, isAnalyze } = options;
   const isServer = target === 'node';
   const isClient = target === 'web';
 
@@ -34,7 +31,8 @@ module.exports = (target = 'web', webpackConfig, options) => {
     __DLLS__: isDebug,
   });
 
-  const config = { ...webpackConfig, target };
+  // const config = { ...webpackConfig, target };
+  const config = webpackConfig(target);
 
   if (isServer) {
     const nodeArgs = [];
@@ -88,7 +86,7 @@ module.exports = (target = 'web', webpackConfig, options) => {
             // Supress errors to console (we use our own logger)
             new webpack.NoEmitOnErrorsPlugin(),
             // Ignore assets.json to avoid infinite recompile bug
-            new webpack.WatchIgnorePlugin([paths.appManifest]),
+            // new webpack.WatchIgnorePlugin([paths.appManifest]),
           ]
         : []),
     ];
@@ -125,9 +123,11 @@ module.exports = (target = 'web', webpackConfig, options) => {
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
     config.node = {
+      dgram: 'empty',
       fs: 'empty',
       net: 'empty',
       tls: 'empty',
+      child_process: 'empty',
     };
 
     // Add client-only plugins
@@ -142,8 +142,15 @@ module.exports = (target = 'web', webpackConfig, options) => {
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new AssetsPlugin({ path: paths.appBuild, filename: 'assets.json' }),
-      new webpack.DefinePlugin({ ...envs, __CLIENT__: true, __SERVER__: false }),
+      new AssetsPlugin({
+        path: paths.appBuild,
+        filename: 'assets.json',
+      }),
+      new webpack.DefinePlugin({
+        ...envs,
+        __CLIENT__: true,
+        __SERVER__: false,
+      }),
       // Add development plugins
       ...(isDebug
         ? [
@@ -154,47 +161,21 @@ module.exports = (target = 'web', webpackConfig, options) => {
       // Add production plugins
       ...(!isDebug
         ? [
-            // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-            new ExtractTextPlugin({ filename: 'static/css/[name].[contenthash:8].css' }),
             // Generate a manifest file which contains a mapping of all asset filenames
             // to their corresponding output file so that tools can pick it up without
             // having to parse `index.html`.
-            new ManifestPlugin({ fileName: 'asset-manifest.json' }),
+            new ManifestPlugin({
+              fileName: 'asset-manifest.json',
+              publicPath: publicPath,
+            }),
             // https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
             // Name the modules that were not named by the previous plugins
-            new NameAllModulesPlugin(),
+            // new NameAllModulesPlugin(),
             // new webpack.optimize.ModuleConcatenationPlugin(),
-            // new webpack.optimize.CommonsChunkPlugin({
-            //   name: 'common',
-            //   minChunks: 2,
-            // }),
-            new webpack.optimize.CommonsChunkPlugin({
-              name: 'vendor',
-              minChunks({ context }) {
-                return context && context.indexOf('node_modules') !== -1;
-              },
-            }),
-            // Ensure that every chunks have an actual name and not an id
-            // If the chunk has a name, this name is used
-            // otherwise the name of the file is used
-            new webpack.NamedChunksPlugin(chunk => {
-              if (chunk.name) {
-                return chunk.name;
-              }
-              const chunkNames = chunk.mapModules(m => m);
-              // Sort the chunks by their depths
-              // The chunk with the lower depth is the imported one
-              // The others are its dependencies
-              chunkNames.sort((chunkA, chunkB) => chunkA.depth - chunkB.depth);
-              // Get the absolute path of the file
-              const fileName = chunkNames[0].resource;
-              // Return the name of the file without the extension
-              return path.basename(fileName, path.extname(fileName));
-            }),
             // Generates an `index.html` file with the <script> injected.
             new HtmlWebpackPlugin({
               inject: true,
-              template: 'config/html.js',
+              template: paths.appHtml,
               minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -243,7 +224,7 @@ module.exports = (target = 'web', webpackConfig, options) => {
         : []),
       // The runtime is the part of Webpack that resolves modules
       // at runtime and handles async loading and more
-      new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' }),
+      // new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' }),
       // Represents bundle content as convenient interactive zoomable treemap
       ...(isAnalyze
         ? [
@@ -263,6 +244,23 @@ module.exports = (target = 'web', webpackConfig, options) => {
           ]
         : []),
     ];
+
+
+    if (!isDebug) {
+      config.optimization = {
+        // Automatically split vendor and commons
+        // https://twitter.com/wSokra/status/969633336732905474
+        splitChunks: {
+          name: 'vendor',
+          chunks: 'all',
+        },
+        // Keep the runtime chunk seperated to enable long term caching
+        // https://twitter.com/wSokra/status/969679223278505985
+        runtimeChunk: {
+          name: 'manifest'
+        },
+      };
+    }
   }
 
   return config;

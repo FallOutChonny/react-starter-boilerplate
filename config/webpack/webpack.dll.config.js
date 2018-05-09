@@ -9,6 +9,7 @@ const servedPath = paths.appDllPath;
 
 module.exports = {
 	devtool: 'inline-source-map',
+	mode: 'development',
 	entry: {
 		vendor: [...config.packages],
 	},
