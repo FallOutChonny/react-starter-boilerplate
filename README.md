@@ -65,7 +65,7 @@ So I created this project and covers all the above settings, let you can focus o
 
 ### Best Developer Expreience
 
-* `webpack` v3 for both development and production bundles.
+* `webpack` v4 for both development and production bundles.
 * `webpack-DLL-plugin`, `cache-loader`, `happypack` for faster rebuild time.
 * `react-hot-loader` enable hot-reload both client and server-side.
 * `redux-devtools` for state history, playback, enable Time travel (you can also use redux-devtools-extension instead).
