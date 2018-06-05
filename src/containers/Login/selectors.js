@@ -1,21 +1,21 @@
 import { createSelector } from 'reselect';
 
-const loginSelector = state => state.get('login');
+const loginSelector = state => state.login;
 
 // prettier-ignore
 export const makeGetForm = () => createSelector(
   loginSelector,
-  loginState => loginState.get('formState')
+  loginState => loginState.formState
 );
 
 // prettier-ignore
 export const makeGetLoading = () => createSelector(
   loginSelector,
-  loginState => loginState.get('loading')
+  loginState => loginState.loading
 );
 
 // prettier-ignore
 export const makeGetError = () => createSelector(
   loginSelector,
-  loginState => loginState.get('error')
+  loginState => loginState.error
 );

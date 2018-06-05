@@ -71,7 +71,7 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const ComposedComponent = compose(hot(module), withConnect)(Login);
 
 export default {
-  name: 'login', // the async reducer/saga name
+  key: 'login',
   Component: ComposedComponent,
   reducer,
   saga,

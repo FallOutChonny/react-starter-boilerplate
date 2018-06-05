@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
-import { hydrate } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
@@ -11,12 +11,14 @@ import registerServiceWorker from './registerServiceWorker';
 import createRoutes from '../routes';
 import configureStore from '../configureStore';
 
-// inject font-awesome styles
 import '../utils/font-awesome';
-// inject styled-components styles
 import './globalStyles';
 
 const rootEl = document.getElementById('app');
+
+const renderMethod = !window.__INITIAL_STATE__
+  ? ReactDOM.hydrate
+  : ReactDOM.render;
 
 (async () => {
   const history = createHistory();
@@ -25,7 +27,7 @@ const rootEl = document.getElementById('app');
   const routes = createRoutes(store);
 
   const renderApp = _routes =>
-    hydrate(
+    renderMethod(
       <AppContainer>
         <Provider store={store}>
           <ConnectedRouter history={history}>
@@ -52,7 +54,7 @@ const rootEl = document.getElementById('app');
     const devToolsEl = document.createElement('div');
     window.document.body.insertBefore(devToolsEl, null);
     const DevTools = require('./createDevTools').default;
-    hydrate(
+    renderMethod(
       <Provider store={store}>
         <DevTools />
       </Provider>,

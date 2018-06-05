@@ -5,8 +5,6 @@ const autoprefixer = require('autoprefixer');
 const HappyPack = require('happypack');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const paths = require('../paths');
 
@@ -77,31 +75,6 @@ module.exports = target => {
     // We generate sourcemaps in production. This is slow but gives good results.
     // You can exclude the *.map files from the build during deployment.
     devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
-    output: {
-      // The build folder.
-      path: paths.appBuild,
-      // Add /* filename */ comments to generated require()s in the output.
-      pathinfo: isDebug,
-      // Generated JS file names (with nested folders).
-      // There will be one main bundle, and one file per asynchronous chunk.
-      // We don't currently advertise code splitting but Webpack supports it.
-      filename: isDebug
-        ? 'static/js/[name].js'
-        : 'static/js/[name].[chunkhash:8].js',
-      // There are also additional JS chunk files if you use code splitting.
-      chunkFilename: isDebug
-        ? 'static/js/[name].chunk.js'
-        : 'static/js/[name].[chunkhash:8].chunk.js',
-      // This is the URL that app is served from.
-      publicPath,
-      // Point sourcemap entries to original disk location
-      devtoolModuleFilenameTemplate: info =>
-        isDebug
-          ? path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
-          : path
-              .relative(paths.appSrc, info.absoluteResourcePath)
-              .replace(/\\/g, '/'),
-    },
     resolve: {
       // This allows you to set a fallback for where Webpack should look for modules.
       // We placed these paths second because we want `node_modules` to "win"
@@ -235,44 +208,6 @@ module.exports = target => {
             },
           ],
         },
-      ],
-    },
-    optimization: {
-      minimizer: [
-        ...(!isDebug
-          ? [
-              new UglifyJsPlugin({
-                sourceMap: true,
-                parallel: true,
-                cache: true,
-                uglifyOptions: {
-                  parse: {
-                    ecma: 8,
-                  },
-                  compress: {
-                    ecma: 5,
-                    warnings: false,
-                    // Disabled because of an issue with Uglify breaking seemingly valid code:
-                    // https://github.com/facebookincubator/create-react-app/issues/2376
-                    // Pending further investigation:
-                    // https://github.com/mishoo/UglifyJS2/issues/2011
-                    comparisons: false,
-                  },
-                  mangle: {
-                    safari10: true,
-                  },
-                  output: {
-                    ecma: 5,
-                    comments: false,
-                    // Turned on because emoji and regex is not minified properly using default
-                    // https://github.com/facebook/create-react-app/issues/2488
-                    ascii_only: true,
-                  },
-                },
-              }),
-              new OptimizeCSSAssetsPlugin(),
-            ]
-          : []),
       ],
     },
     plugins: [

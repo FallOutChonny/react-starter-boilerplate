@@ -40,7 +40,7 @@ const FormWrapper = styled.div`
 
   input {
     display: block;
-    width: 100%;
+    width: 93%;
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
     line-height: 1.25;

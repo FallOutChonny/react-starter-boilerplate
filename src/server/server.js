@@ -36,7 +36,14 @@ app.use(compression());
 // Serve static assets
 app.use(
   express.static(path.resolve(process.cwd(), 'build'), {
+    // index: false,
     maxAge: 86400000 * 7,
+    // setHeaders: res => {
+    //   if (path.indexOf('service-worker.js')) {
+    //     res.setHeader('Cache-Control', 'no-store');
+    //     // return;
+    //   }
+    // },
   })
 );
 

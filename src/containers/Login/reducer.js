@@ -2,8 +2,6 @@
  * If the module is not too complicated or too big, it is recommended that
  * you can use the duck modular redux style
  */
-
-import { fromJS } from 'immutable';
 import createReducer from 'utils/createReducer';
 
 export const LOGIN_REQUEST = 'app/login/LOGIN_REQUEST';
@@ -11,32 +9,28 @@ export const LOGIN_SUCCESS = 'app/login/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'app/login/LOGIN_FAILURE';
 export const CHANGE_FORM = 'app/login/CHANGE_FORM';
 
-const initialState = fromJS({
+const initialState = {
   loading: false,
   formState: {
     username: '',
     password: '',
   },
   error: null,
-});
+};
 
 const reducer = createReducer(
   {
-    [LOGIN_REQUEST]: state => {
-      return state.set('loading', true).set('error', null);
-    },
+    [LOGIN_REQUEST]: state => ({ ...state, loading: true, error: null }),
 
-    [LOGIN_FAILURE]: (state, { error }) => {
-      return state.set('loading', false).set('error', error);
-    },
+    [LOGIN_FAILURE]: (state, { error }) => ({
+      ...state,
+      loading: false,
+      error,
+    }),
 
-    [LOGIN_SUCCESS]: state => {
-      return state.set('loading', false);
-    },
+    [LOGIN_SUCCESS]: state => ({ ...state, loading: false }),
 
-    [CHANGE_FORM]: (state, { formState }) => {
-      return state.set('formState', formState);
-    },
+    [CHANGE_FORM]: (state, { formState }) => ({ ...state, formState }),
   },
   initialState
 );

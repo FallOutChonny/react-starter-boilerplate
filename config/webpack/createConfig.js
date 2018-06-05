@@ -5,6 +5,8 @@ const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -69,6 +71,7 @@ module.exports = (target = 'web', webpackConfig, options) => {
 
     config.output = {
       path: paths.appBuild,
+      publicPath,
       filename: 'server.js',
     };
 
@@ -77,7 +80,11 @@ module.exports = (target = 'web', webpackConfig, options) => {
       ...config.plugins,
       // Prevent creating multiple chunks for the server
       new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
-      new webpack.DefinePlugin({ ...envs, __CLIENT__: false, __SERVER__: true }),
+      new webpack.DefinePlugin({
+        ...envs,
+        __CLIENT__: false,
+        __SERVER__: true,
+      }),
       // Add development plugins
       ...(isDebug
         ? [
@@ -94,10 +101,6 @@ module.exports = (target = 'web', webpackConfig, options) => {
 
   if (isClient) {
     config.entry = {
-      // vendor: [
-      //   ...(isDebug ? [] : pkg.appVendors),
-      //   ...(useBS ? [bootstrapConfig] : []),
-      // ],
       main: [
         // We ship a few polyfills by default:
         require.resolve('../polyfills'),
@@ -118,6 +121,32 @@ module.exports = (target = 'web', webpackConfig, options) => {
         // Finally, this is your app's code:
         paths.appIndexJs,
       ],
+    };
+
+    config.output = {
+      // The build folder.
+      path: paths.appBuild,
+      // Add /* filename */ comments to generated require()s in the output.
+      pathinfo: isDebug,
+      // Generated JS file names (with nested folders).
+      // There will be one main bundle, and one file per asynchronous chunk.
+      // We don't currently advertise code splitting but Webpack supports it.
+      filename: isDebug
+        ? 'static/js/[name].js'
+        : 'static/js/[name].[chunkhash:8].js',
+      // There are also additional JS chunk files if you use code splitting.
+      chunkFilename: isDebug
+        ? 'static/js/[name].chunk.js'
+        : 'static/js/[name].[chunkhash:8].chunk.js',
+      // This is the URL that app is served from.
+      publicPath,
+      // Point sourcemap entries to original disk location
+      devtoolModuleFilenameTemplate: info =>
+        isDebug
+          ? path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
+          : path
+              .relative(paths.appSrc, info.absoluteResourcePath)
+              .replace(/\\/g, '/'),
     };
 
     // Some libraries import Node modules but don't use them in the browser.
@@ -245,20 +274,61 @@ module.exports = (target = 'web', webpackConfig, options) => {
         : []),
     ];
 
+    config.optimization = {
+      // Keep the runtime chunk seperated to enable long term caching
+      // https://twitter.com/wSokra/status/969679223278505985
+      runtimeChunk: {
+        name: 'manifest',
+      },
+    };
 
     if (!isDebug) {
       config.optimization = {
+        ...config.optimization,
         // Automatically split vendor and commons
         // https://twitter.com/wSokra/status/969633336732905474
         splitChunks: {
-          name: 'vendor',
-          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendor',
+              // priority: -20,
+              chunks: 'all',
+            },
+          },
         },
-        // Keep the runtime chunk seperated to enable long term caching
-        // https://twitter.com/wSokra/status/969679223278505985
-        runtimeChunk: {
-          name: 'manifest'
-        },
+        minimizer: [
+          new UglifyJsPlugin({
+            sourceMap: true,
+            parallel: true,
+            cache: true,
+            uglifyOptions: {
+              parse: {
+                ecma: 8,
+              },
+              compress: {
+                ecma: 5,
+                warnings: false,
+                // Disabled because of an issue with Uglify breaking seemingly valid code:
+                // https://github.com/facebookincubator/create-react-app/issues/2376
+                // Pending further investigation:
+                // https://github.com/mishoo/UglifyJS2/issues/2011
+                comparisons: false,
+              },
+              mangle: {
+                safari10: true,
+              },
+              output: {
+                ecma: 5,
+                comments: false,
+                // Turned on because emoji and regex is not minified properly using default
+                // https://github.com/facebook/create-react-app/issues/2488
+                ascii_only: true,
+              },
+            },
+          }),
+          new OptimizeCSSAssetsPlugin(),
+        ],
       };
     }
   }
