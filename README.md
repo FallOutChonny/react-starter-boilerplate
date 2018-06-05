@@ -55,7 +55,6 @@ So I created this project and covers all the above settings, let you can focus o
 * `redux-saga` deal with asynchronous action flow.
 * `react-router-redux` sync your router with redux state
 * `reselect` to avoid frequent re-render that improve performance.
-* `immutable.js` provides many persistent Immutable data structures.
 * `styled-components` helps you organize CSS in react project.
 * `font-awesome` as the Icons
 * `babel` v7 for es6+ support and load babel-polyfill on-demand.
