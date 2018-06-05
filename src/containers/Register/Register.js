@@ -61,7 +61,7 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const ComposedComponent = compose(hot(module), withConnect)(Register);
 
 export default {
-  name: 'register',
+  key: 'register',
   Component: ComposedComponent,
   reducer,
   saga,

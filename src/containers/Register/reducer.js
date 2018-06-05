@@ -2,32 +2,28 @@
  * If the module is not too complicated or too big, it is recommended that
  * you can use the duck modular redux style
  */
-
-import { fromJS } from 'immutable';
 import createReducer from 'utils/createReducer';
 
 export const REGISTER_REQUEST = 'app/login/REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'app/login/REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'app/login/REGISTER_FAILURE';
 
-const initialState = fromJS({
+const initialState = {
   loading: false,
   error: null,
-});
+};
 
 const reducer = createReducer(
   {
-    [REGISTER_REQUEST]: state => {
-      return state.set('loading', true).set('error', null);
-    },
+    [REGISTER_REQUEST]: state => ({ ...state, loading: true, error: null }),
 
-    [REGISTER_SUCCESS]: state => {
-      return state.set('loading', false);
-    },
+    [REGISTER_SUCCESS]: state => ({ ...state, loading: false }),
 
-    [REGISTER_FAILURE]: (state, { error }) => {
-      return state.set('loading', false).set('error', error);
-    },
+    [REGISTER_FAILURE]: (state, { error }) => ({
+      ...state,
+      loading: false,
+      error,
+    }),
   },
   initialState
 );

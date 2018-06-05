@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 
-export default class extends React.PureComponent {
-  static displayName = 'FormBody';
-
+export default class FormBody extends React.PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       username: PropTypes.string,
@@ -26,17 +24,21 @@ export default class extends React.PureComponent {
 
   onChangeUsername = evt => {
     evt.preventDefault();
-    const { data: { password } } = this.props;
+    const {
+      data: { password },
+    } = this.props;
     this.props.onChange({ password, username: evt.target.value });
   };
 
   onChangePassword = evt => {
     evt.preventDefault();
-    const { data: { username } } = this.props;
+    const {
+      data: { username },
+    } = this.props;
     this.props.onChange({ username, password: evt.target.value });
   };
 
-  handleClickCreateAccount = e => {
+  handleCreateAccount = e => {
     e.preventDefault();
     this.props.history.push('/register');
   };
@@ -75,15 +77,15 @@ export default class extends React.PureComponent {
             />
           </label>
         </div>
-        <div className="form-group ">
+        <div className="form-group">
           <Button color="primary" block>
-            {name} {loading && <i className="fas fa-spin fa-circle-notch" />}
+            {name} {loading && <i className="fa fa-spin fa-circle-notch" />}
           </Button>
         </div>
         {name === 'Login' && (
           <div className="margin-top20 text-center">
             Dont have an account?{' '}
-            <Button color="link" onClick={this.handleClickCreateAccount}>
+            <Button color="link" onClick={this.handleCreateAccount}>
               Create One
             </Button>
           </div>

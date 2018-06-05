@@ -16,4 +16,6 @@ fontawesome.library.add([
   faFacebook,
 ]);
 
+fontawesome.config.autoReplaceSvg = 'nest';
+
 export default fontawesome;

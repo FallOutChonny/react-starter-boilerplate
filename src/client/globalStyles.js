@@ -5,7 +5,7 @@ injectGlobal`
   #app {
     max-width: calc(800px + 32px);
     margin: 0 auto;
-    display: flex;
+    display: block;
     height: 100%;
     padding: 0 16px;
   }
