@@ -15,12 +15,12 @@ const Wrapper = styled.div`
 `;
 
 class App extends React.PureComponent {
+  static preLoad = () => [[loadAuthIfNeed]];
+
   static propTypes = {
     route: PropTypes.shape({ routes: PropTypes.array }).isRequired,
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   };
-
-  static preLoad = () => [[loadAuthIfNeed]];
 
   render() {
     const { route, history } = this.props;
