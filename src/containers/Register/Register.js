@@ -2,7 +2,7 @@
  * NOTE: An example that using local state to stored form state.
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -14,7 +14,7 @@ import saga from './saga';
 import { reducer, register } from './reducer';
 import { makeGetError, makeGetLoading } from './selectors';
 
-class Register extends Component {
+class Register extends PureComponent {
   static propTypes = {
     register: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
@@ -57,8 +57,14 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = { register };
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const ComposedComponent = compose(hot(module), withConnect)(Register);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
+const ComposedComponent = compose(
+  hot(module),
+  withConnect
+)(Register);
 
 export default {
   key: 'register',
