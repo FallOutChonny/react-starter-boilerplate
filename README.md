@@ -18,7 +18,7 @@
 
 # React Starter Boilerplate
 
-[DEPCREATED] Now I would recommend, Server-side Rendering can use Next.js, Client-side Rendering can use Create-React-App.
+[DEPCREATED] Now I would recommend: For Server-side Rendering can use Next.js; For Client-side Rendering can use Create-React-App.
 
 A starter kit for universal react app, this project is extends from ejected create-react-app.
 
